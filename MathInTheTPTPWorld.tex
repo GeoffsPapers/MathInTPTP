@@ -34,8 +34,8 @@
 \renewcommand{\topfraction}{0.9}
 \renewcommand{\bottomfraction}{0.9}
 \renewcommand{\floatpagefraction}{0.66}
-\setlength{\floatsep}{2.0pt plus 2.0pt minus 2.0pt}
-\setlength{\textfloatsep}{5.0pt plus 2.0pt minus 0.0pt}
+% \setlength{\floatsep}{2.0pt plus 2.0pt minus 2.0pt}
+% \setlength{\textfloatsep}{5.0pt plus 2.0pt minus 0.0pt}
 
 \title{Automated Reasoning for Mathematics \\ in the TPTP World}
 
@@ -76,11 +76,11 @@ Quoted from Wikipedia \href{https://en.wikipedia.org/wiki/Automated_reasoning}{{
 Automated reasoning spans a diversity of approaches, from deduction in logic~\cite{Gal15} to more 
 forgiving types of reasoning such as argumentation~\cite{vE+14}.
 The left side of Figure~\ref{UseOfAR} shows how automated reasoning systems are used in general: 
-(i)~a world problem written in the language of the application domain is translated to the language
+(i)~a world problem written in an application domain language is translated to the language
 of the automated reasoning system; (ii)~the resultant reasoning problem is given to an automated 
 reasoning system; (iii)~the automated reasoning system produces a solution (which can be in a
 language different from that used for the problem); (iv)~the solution is translated to the 
-language of the application domain.
+application domain language.
 
 For automated reasoning in mathematics, the mathematical problems are very often translated to 
 a formal logic language, and the automated reasoning systems used to solve the problems are 
@@ -88,11 +88,11 @@ Automated Theorem Proving (ATP) systems~\cite{Bun83,RV01-HAR}.
 The right side of Figure~\ref{UseOfAR} shows the specialization of general automated reasoning
 to mathematical reasoning in logic:
 (i)~a mathematical problem written in a mathematical language is translated to an appropriate 
-logic language, as a set of axioms that model the mathematical domain, typically accompanied 
+logic language, as a set of axioms that model the mathematical domain and typically accompanied 
 by a conjecture that formalizes a theorem to be proved; (ii)~the resultant logic problem is given 
 to an ATP system; (iii)~the ATP system produces a solution in a logic language (which can be 
-in a logic language different from that used to write the problem); (iv)~the logic solution is 
-translated to a solution in a mathematical language.
+a different language from that used to write the problem); (iv)~the logic solution is translated 
+to the mathematical language.
 
 \begin{figure}[htb]
 \centering
@@ -104,9 +104,8 @@ translated to a solution in a mathematical language.
 
 The TPTP World is a well established infrastructure that supports research, development, and 
 deployment of ATP~\cite{Sut10,Sut17}.
-A large portion of the TPTP World is concerned with various mathematical domains, problems, and
-solutions.
-This paper describes the content and services of the TPTP World that support automated reasoning
+A large portion of the TPTP World is concerned with various mathematical domains.
+This paper describes the data sets and services in the TPTP World that support automated reasoning
 in mathematics.
 Section~\ref{TPTPWorld} provides the necessary background about the TPTP World.
 Section~\ref{MathProblems} describes the breadth and depth of mathematical problems in the TPTP
@@ -125,12 +124,81 @@ Salient components of the TPTP World are
 the TPTP language that is used to write mathematical problems and solutions as logic problems and 
 solutions (Section~\ref{Languages}),
 the TPTP problem library and TSTP solution library that contain (amoung others) mathematical
-problems and solutions (Section~\ref{TPTPTSTP}),
+problems and solutions (Sections~\ref{TPTP} and~\ref{TSTP}),
 the problem and ATP systems ratings that indicate how hard (the mathematical) problems are and 
 how strong the ATP systems are (Section~\ref{Ratings}),
 and SystemOnTPTP for executing ATP systems and tools on the mathematical problems and solutions
 (Section~\ref{SystemOnTPTP}).
 The web page \href{http://www.tptp.org}{{\tt www.tptp.org}} provides access to all components.
+
+%--------------------------------------------------------------------------------------------------
+\subsection{The TPTP Problem Library}
+\label{TPTP}
+
+The TPTP problem library is a comprehensive library of test problems for ATP systems~\cite{Sut09}.
+It supports necessary for meaningful ATP system evaluations, meaningful system comparisons, 
+repeatability of testing, and the production of statistically significant results. 
+Seven main fields are defined: logic, mathematics, computer science, science \& engineering, 
+social sciences, arts \& humanities, and other. 
+Each field is subdivided into domains based mainly on the Dewey Decimal Classification and the 
+Mathematics Subject Classification, and each domain identified by a three-letter mnemonic.
+The mathematical domains of the TPTP are described in Section~\ref{MathProblems}.
+
+For a given {\em abstract} (mathematical) problem, the TPTP problem library can have multiple 
+concrete {\em versions}, which are the problems that ATP systems solve. 
+Each problem is stored in a separate physical file, using the naming scheme {\em DDDNNNFV}.
+{\em DDD} is the domain mnemonic, {\em NNN} is the index of the abstract problem in the domain,
+{\em F} identifies the TPTP language, and {\em V} is the version index in the abstract problem.
+Each problem file has three parts: a header, optional includes, and annotated formulae.
+The header section contains information for users, as shown in Figure~\ref{ExampleHeader}.
+The header fields are self-explanatory, but of particular interest are the {\tt Status}, SPC,
+and Rating fields, which are explained in Section~\ref{Characteristics}.
+The include section of a problem file is optional, and if used contains {\tt include} directives 
+for axiom files, as in Figure~\ref{ExampleFOF}.
+Inclusion avoids the need for duplication of the formulae in commonly used axiomatizations.
+The TPTP World has many axiomatizations of mathematical theories, as described in 
+Section~\Ref{MathProblems}.
+The syntax of the annotated formulae of a problem is described in Section~\ref{Languages}.
+
+\begin{figure}[htb]
+\centering
+{\scriptsize
+{\setlength{\baselineskip}{2.5mm}
+\begin{verbatim}
+%------------------------------------------------------------------------------
+% File     : GRP194+1 : TPTP v9.0.0. Released v2.0.0.
+% Domain   : Group Theory (Semigroups)
+% Problem  : In semigroups, a surjective homomorphism maps the zero
+% Version  : [Gol93] axioms.
+% English  : If (F,*) and (H,+) are two semigroups, phi is a surjective
+%            homomorphism from F to H, and id is a left zero for F, then 
+%            phi(id) is a left zero for H.
+
+% Refs     : [Gol93] Goller (1993), Anwendung des Theorembeweisers SETHEO a
+% Source   : [Gol93]
+% Names    :
+
+% Status   : Theorem
+% Rating   : 0.18 v9.0.0, 0.22 v7.5.0, 0.36 v6.1.0, 0.47 v6.0.0, 0.50 v5.3.0
+% Syntax   : Number of formulae    :    8 (   2 unt;   0 def)
+%            Number of atoms       :   21 (   4 equ)
+%            Maximal formula atoms :    4 (   2 avg)
+%            Number of connectives :   13 (   0   ~;   0   |;   6   &)
+%                                         (   1 <=>;   6  =>;   0  <=;   0 <~>)
+%            Maximal formula depth :    8 (   5 avg)
+%            Maximal term depth    :    3 (   1 avg)
+%            Number of predicates  :    3 (   2 usr;   0 prp; 2-2 aty)
+%            Number of functors    :    5 (   5 usr;   3 con; 0-3 aty)
+%            Number of variables   :   15 (  14   !;   1   ?)
+% SPC      : FOF_THM_RFO_SEQ
+
+% Comments :
+%------------------------------------------------------------------------------
+\end{verbatim}
+}}
+\caption{Header of problem {\tt GRP194+1}}
+\label{ExampleHeader}
+\end{figure}
 
 %--------------------------------------------------------------------------------------------------
 \subsection{The TPTP Language}
@@ -167,11 +235,10 @@ $\forall$, $\exists$, $\neg$, $\vee$, $\wedge$, $\Rightarrow$, $\Leftarrow$, $\L
 and $\oplus$ respectively.
 Equality and inequality are expressed as the infix operators {\tt =} and {\tt !=}.
 The {\em source} and {\em useful\_info} are optional.
-Figure~\ref{ExampleFOF} shows an example set theory problem written in first-order logic
-(it is the TPTP problem {\tt GRP194+1}\footnote{%
-TPTP problems can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP/}}}), and 
-Figure~\ref{ExampleTF0} shows an example arithmetic problem written in typed first-order logic 
-(it is a cutdown version of the TPTP problem {\tt SEV421\_1}).
+Figure~\ref{ExampleFOF} shows the group theory problem {\tt GRP194+1} written in first-order logic
+(the header is shown in Figure~\ref{ExampleHeader}), and Figure~\ref{ExampleTF0} shows a cutdown 
+version of the set theory problem {\tt SEV421\_1}, written in typed first-order logic.\footnote{%
+TPTP problems can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP/}}}
 
 \begin{figure}[htb]
 \centering
@@ -204,7 +271,6 @@ fof(left_zero,axiom,
     <=> ( group_member(X,G)
         & ! [Y] : ( group_member(Y,G) => multiply(G,X,Y) = X ) ) ) ).
 
-%----The conjecture
 fof(left_zero_for_f,hypothesis,
     left_zero(f,f_left_zero) ).
 
@@ -266,108 +332,77 @@ tff(about_empty_sets,conjecture,
 \end{figure}
 
 %--------------------------------------------------------------------------------------------------
-\subsection{The TPTP Problem and Solution Libraries}
-\label{TPTPTSTP}
+\subsection{Status, SPC, and Rating}
+\label{Characteristics}
 
-The TPTP problem library is a comprehensive library of test problems for ATP systems~\cite{Sut09}.
-It supports necessary for meaningful ATP system evaluations, meaningful system comparisons, 
-repeatability of testing, and the production of statistically significant results. 
-The problems are classified into {\em domains} that reflect a natural hierarchy,
-based mainly on the Dewey Decimal Classification and the Mathematics Subject Classification.
-Seven main fields are defined: logic, mathematics, computer science, science \& engineering, 
-social sciences, arts \& humanities, and other. 
-Each field is subdivided into domains, each identified by a three-letter mnemonic.
-For a given {\em abstract} mathematical problem the TPTP problem library can have multiple 
-concrete {\em versions}, which are the problems that ATP systems solve. 
+The ``Status'' of a TPTP problem is given as an SZS ontology value~\cite{Sut08-KEAPPA}
+The ontologies~\cite{SZS03}) provide values to specify the logical status of problems and
+solutions, and to describe logical data.
+The Success ontology provides values for the logical status of a conjecture with respect to a 
+set of axioms, e.g., a TPTP problem whose conjecture is a logical consequence of the axioms 
+is tagged as a {\tt Theorem}, as in Figure~\ref{ExampleHeader}.
+The NoSuccess and Dataform ontologies are used in the output from ATP systems, as described in
+Section~\ref{TSTP}.
+The NoSuccess ontology provides reasons why an ATP system/tool has failed, e.g., an ATP system 
+might report {\tt Timeout}, and the Dataform ontology provides values for describing logical 
+data.
+Some commonly used ontology values are listed in Figure~\ref{SZSTable}.
 
-Each problem version is stored in a separate physical file, using the naming scheme {\em DDDNNNFV}.
-{\em DDD} is the domain mnemonic, {\em NNN} is the index of the abstract problem in the domain,
-{\em F} identifies the TPTP language, and {\em V} is the version index in the abstract problem.
-Each problem file has three parts: a header, optional includes, and annotated formulae.
-The header section contains information for users, formatted as comments in four parts, as shown
-in Figure~\ref{ExampleHeader}.
-The first part identifies and describes the problem,
-the second part provides information about occurrences of the problem
-in the literature and elsewhere,
-the third part provides semantic and syntactic characteristics of the problem, and
-the last part contains comments and bugfix information.
-The header fields are self-explanatory, but of particular interest are the {\tt Status} field 
-that is explained in Section~\ref{SZS}, the {\tt Rating} field that is explained in 
-Section~\ref{Ratings}, and the {\tt SPC} field that is explained in Section~\ref{SPCs}.
-The include section is optional, and if used contains {\tt include} directives for axiom files,
-which in turn have the same three-part format as problem files; see Figure~\ref{ExampleHeader}
-for an example.
-Inclusion avoids the need for duplication of the formulae in commonly used axiomatizations.
-The annotated formulae are described in Section~\ref{Languages}, and Figure~\ref{ExampleFormulae} 
-provides an example.
+% \begin{figure}[htb]
+% \centering
+% \includegraphics[width=0.75\textwidth]{SZSExtract.pdf}
+% \caption{Extract of the SZS ontologies}
+% \label{SZSExtract}
+% \end{figure} 
 
 \begin{figure}[htb]
 \centering
-{\scriptsize
-{\setlength{\baselineskip}{2.5mm}
-\begin{verbatim}
-%------------------------------------------------------------------------------
-% File     : GRP194+1 : TPTP v9.0.0. Released v2.0.0.
-% Domain   : Group Theory (Semigroups)
-% Problem  : In semigroups, a surjective homomorphism maps the zero
-% Version  : [Gol93] axioms.
-% English  : If (F,*) and (H,+) are two semigroups, phi is a surjective
-%            homomorphism from F to H, and id is a left zero for F,
-%            then phi(id) is a left zero for H.
+\begin{tabular}{lll}
+{\tt SZS} & Name                      & Meaning \\
+\hline
+{\tt THM} & {\tt Theorem}             & The conjecture is a theorem of the axioms \\
+{\tt CAX} & {\tt ContradictoryAxioms} & The axioms are contradictory \\
+{\tt SAT} & {\tt Satisfiable}         & The axioms are not contradictory \\
+{\tt CSA} & {\tt CounterSatisfiable}  & The conjecture is not a theorem of the axioms \\
+{\tt TMO} & {\tt Timeout}             & The ATP system stopped because of a time limit \\
+{\tt GUP} & {\tt GaveUp}              & The ATP system gave up of its own accord \\
+{\tt Prf} & {\tt Proof}               & The ATP system output is a proof \\
+{\tt Mod} & {\tt Model}               & The ATP system output is a model \\
+\end{tabular}
+\caption{SZS ontology values}
+\label{SZSTable}
+\end{figure} 
 
-% Refs     : [Gol93] Goller (1993), Anwendung des Theorembeweisers SETHEO a
-% Source   : [Gol93]
-% Names    :
+The TPTP problem library is divided into Specialist Problem Classes (SPCs) of problems with 
+recognizable logical, language, and syntactic characteristics, which make the problems in each 
+SPC homogeneous wrt ATP systems.
+An ATP system can be selected based on the SPC of the problem.
+The characteristics used to define the SPC of a problem are the TPTP language variant, the SZS
+status, the language order, use of equality, use of arithmetic.
+For example, the SPC {\tt TF0\_THM\_NEQ\_ARI} contains typed monomorphic first-order theorems 
+that have no equality but include arithmetic.
 
-% Status   : Theorem
-% Rating   : 0.18 v9.0.0, 0.22 v7.5.0, 0.36 v6.1.0, 0.47 v6.0.0, 0.50 v5.3.0, 
-% Syntax   : Number of formulae    :    8 (   2 unt;   0 def)
-%            Number of atoms       :   21 (   4 equ)
-%            Maximal formula atoms :    4 (   2 avg)
-%            Number of connectives :   13 (   0   ~;   0   |;   6   &)
-%                                         (   1 <=>;   6  =>;   0  <=;   0 <~>)
-%            Maximal formula depth :    8 (   5 avg)
-%            Maximal term depth    :    3 (   1 avg)
-%            Number of predicates  :    3 (   2 usr;   0 prp; 2-2 aty)
-%            Number of functors    :    5 (   5 usr;   3 con; 0-3 aty)
-%            Number of variables   :   15 (  14   !;   1   ?)
-% SPC      : FOF_THM_RFO_SEQ
+Each TPTP problem has a difficulty rating that provides a well-defined measure of how difficult 
+the problem is for current ATP systems~\cite{SS01}.
+The ratings are based on performance data in the TSTP solution library (see Section~\ref{TSTP}), 
+done separately for each SPC.
+The TPTP difficulty ratings provide a way to assess progress in the field -- as problems that 
+are unchanged are not actually getting easier, decreases in their difficulty ratings are evidence 
+of progress in ATP systems.
 
-% Comments :
-%------------------------------------------------------------------------------
-\end{verbatim}
-}}
-\caption{Header of problem {\tt GRP194+1}}
-\label{ExampleHeader}
-\end{figure}
+%--------------------------------------------------------------------------------------------------
+\subsection{The TSTP Solution Library}
+\label{TSTP}
 
 The complement to the TPTP problem library is the TSTP solution library~\cite{Sut07-CSR,Sut10}.
 The TSTP is built by running all the ATP systems that are available in the TPTP World on
 all the problems in the TPTP problem library.
-The TSTP started being built around 2005, using solutions provided by individual system developers.
-From 2010 to 2013 the TSTP was generated on a small NSF funded\footnote{%
-NSF Award 0957438} cluster at the University of Miami.
-Since 2014 the ATP systems have been run on StarExec (see Section~\ref{StarExec}), initially on 
-the StarExec Iowa cluster, and since 2018 on the StarExec Miami cluster.
-StarExec has provided stable platforms that produce reliably consistent and comparable data in 
-the TSTP.
-% The ATP systems come from a range of sources:
-% some were developed many years ago and are no longer distributed;
-% some are the most recent available, taken either from the systems’ web sites or from the most 
-% recent edition of CASC.
-At the time of writing this paper the TSTP contained the results of running 87 ATP systems and 
-system variants on all the problems that each system could attempt
-(therefore, e.g., systems that do model finding for FOF are not run on THF problems).
-This produced 1091026 runs, of which 432718 (39.6\%) solved the problem.
-One use of the TSTP is for computing the TPTP problem difficulty ratings (see 
-Section~\ref{Ratings}).
-
 TSTP solution files have a header section and annotated formulae.
-The header section has four parts, as shown in Figure~\ref{ExampleDerivationHeader}:
-the first part identifies the ATP system, the problem, and the system's runtime parameters; 
-the second part provides information about the hardware, operating system, and resource limits; 
-the third part provides the SZS result and output values (see Section~\ref{SZS}), and syntactic 
-characteristics of the solution; the last part contains comments.
+The header section has four parts, as shown in Figure~\ref{ExampleDerivationHeader}.
+the first part identifies the ATP system, the problem, and the system's runtime parameters,
+the second part provides information about the hardware, operating system, and resource limits,
+the third part provides the SZS result and output values (see Section~\ref{Characteristics}), 
+and syntactic characteristics of the solution; the last part contains comments.
 The solution follows in annotated formulae.
 
 For derivations, where formulae are derived from parent formulae, e.g., in proofs, refutations, 
@@ -375,11 +410,11 @@ etc., the {\em source} fields of the annotated formulae are used to capture pare
 formulae relationships in the derivation DAG.
 This includes the source of the formula -- either the problem file or an inference.
 Inference data includes the name of the inference rule used, the semantic relationship between 
-the parents and the derived formula as an SZS ontology value (see Section~\ref{SZS}), and a 
-list of the parent annotated formulae names.
+the parents and the derived formula as an SZS value, and a list of the parent annotated formulae 
+names.
 Figure~\ref{ExampleDerivationFormulae} shows an example refutation (slightly modified) from 
 the E ATP system~\cite{SCV19} for the problem in Figure~\ref{ExampleFOF}, and 
-Figure~\ref{ExampleDerivationHeader} shows the corresponding header fields.
+Figure~\ref{ExampleDerivationHeader} shows the corresponding header.
 
 \begin{figure}[htb]
 \centering
@@ -486,192 +521,61 @@ cnf(c_0_33,hypothesis,
 \label{ExampleDerivationFormulae}
 \end{figure}
 
-For interpretations (typically models) the annotated formulae are used to describe the domains
-and symbol mappings of Tarskian interpretations, or the formulae that induce Herbrand models.
-A TPTP format for interpretations with finite domains was previously defined~\cite{SS+06}, 
-and has served the ATP community adequately for almost 20 years. 
-Recently the need to represent interpretations with infinite domains, and Kripke interpretations, 
-has led to the development of a new TPTP format that supports these interpretations~\cite{SSP24}.
-Figure~\ref{ExampleModel} shows the problem formulae and a model that uses integers as the domain.
-Please read~\cite{SSP24} for lots more details!
+%--------------------------------------------------------------------------------------------------
+\section{Math Problems in the TPTP World}
+\label{MathProblems}
 
-\paragraph{Resource Limits:}
-A common question, often based on mistaken beliefs, is whether the resource limits used should 
-be increased to find more solutions.
-Analysis shows that increasing resource limits does not significantly affect which problems 
-are solved by an ATP system. 
-Figure~\ref{PPPPlot} illustrates this point; it plots the CPU times taken by several contemporary 
-ATP systems to solve the TPTP problems for the {\tt FOF\_THM\_RFO\_*} SPCs, in increasing order 
-of time taken. 
-The data was taken from the TSTP, i.e., using the StarExec Miami computers.
-The relevant feature of these plots is that each system has a point at which the time taken to 
-find solutions starts to increase dramatically. 
-This point is called the system's Peter Principle~\cite{PH69} Point (PPP) -- it is the point at 
-which the system has reached its level of incompetence. 
-Evidently a linear increase in the computational resources beyond the PPP would not lead to the 
-solution of significantly more problems. 
-The PPP thus defines a realistic computational resource limit for the system, and if enough CPU 
-time is allowed for an ATP system to reach its PPP, a usefully accurate measure of what problems 
-it can solve is achieved.
-% From an ATP perspective, the PPP is the point at which the ATP system gets lost in its quickly 
-% growing search space. 
-% Even though there may be enough memory to represent the search space at the PPP, the system is 
-% largely unable to find a solution within the space. 
-% The point thus also defines a realistic memory resource limit. 
-The performance data in the TSTP is produced with adequate resource limits.
+Table~\ref{Domains} lists the mathematical domains in the TPTP problem library v9.0.0.
+The data columns provide the number of abstract problems, the number of problem versions, the
+number of problems with equality, the number of problems whose conjctures are known to be
+theorems, and the average rating for those problems.
+
+ARI SET SEU SEV GRA REL MVA BOO ROB LDA LAT QUA KLE GRP RNG FLD LIN HAL RAL ALG NUM NUN TOP ANA GEO CAT
+
+\begin{table}[htb]
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lr|rr|rrr}
+Domain              & TLM       & Abs  & Ver  & Equ & Thm & Rtg \\
+\hline
+Arithmetic          & {\tt ARI} &  681 &  693 & & & \\
+Set theory          & {\tt SET} & 2443 & 1429 & & & \\
+Graph theory        & {\tt GRA} &  116 &  175 & & & \\
+Relation algebra    & {\tt REL} &   53 &  223 & & & \\
+MV algebras         & {\tt MVA} &   15 &   15 & & & \\
+Boolean algebra     & {\tt BOO} &  105 &  150 & & & \\
+Robbins algebra     & {\tt ROB} &   34 &   48 & & & \\
+Left distributive   & {\tt LDA} &   41 &   50 & & & \\
+Lattices            & {\tt LAT} &  401 &  758 & & & \\
+Quantales           & {\tt QUA} &   21 &   21 & & & \\
+Kleene algebra      & {\tt KLE} &  182 &  257 & & & \\
+Groups              & {\tt GRP} &  821 & 1207 & & & \\
+Rings               & {\tt RNG} &  128 &  268 & & & \\
+Fields              & {\tt FLD} &  101 &  281 & & & \\
+Linear algebra      & {\tt LIN} &   15 &   15 & & & \\
+Homological algebra & {\tt HAL} &    7 &   10 & & & \\
+Real algebra        & {\tt RAL} &   70 &   70 & & & \\
+General Algebra     & {\tt ALG} &  444 &  551 & & & \\
+Number Theory       & {\tt NUM} & 1008 & 1811 & & & \\
+Topology            & {\tt TOP} &   53 &  136 & & & \\
+Analysis            & {\tt ANA} &  140 &  209 & & & \\
+Geometry            & {\tt GEO} &  659 &  982 & & & \\
+Category Theory     & {\tt CAT} &   38 &  136 & & & \\
+\hline
+Total               &           & 7656 &11778 & & & \\
+\end{tabular}
+\end{center}
+\caption{TPTP mathematical domains}
+\label{Domains}
+\end{table}
 
 %--------------------------------------------------------------------------------------------------
-\subsection{Problem and System Ratings}
-\label{Ratings}
-
-The TPTP problem library is divided into Specialist Problem Classes (SPCs) -- classes of problems 
-with the same recognizable logical, language, and syntactic characteristics that make the
-problems in each SPC homogeneous wrt ATP systems.
-% SPCs added in v4.1.0 15/06/10
-Evaluation of ATP systems within SPCs makes it possible to say which systems work well for what 
-types of problems. 
-The appropriate level of subdivision for SPCs is that at which less subdivision would merge 
-SPCs for which ATP systems have distinguishable behaviour, and at which further subdivision
-would unnecessarily split SPCs for which ATP systems have reasonably homogeneous behaviour.
-Empirically, homogeneity is ensured by examining the patterns of system performance across the 
-problems in each SPC. 
-The SPCs for essentially propositional problems were motivated by the observation that 
-SPASS~\cite{WA+99} performed differently on the ALC problems in the SYN domain of the TPTP.
-A data-driven test for homogeneity is also possible~\cite{FS02}.
-
-The characteristics currently used to define the SPCs in the TPTP are shown in 
-Figure~\ref{SPCCharacteristics}.
-Using these characteristics 223 SPCs are defined in TPTP v8.2.0. 
-For example, the SPC
-% Some examples are:
-% {\tt CNF\_SAT\_EPR\_PEQ\_UEQ} -- clause normal form satisfiable clauses that are effectively
-% propositional, have purely equality literals in unit equality clauses;
-% {\tt FOF\_THM\_RFO\_SEQ} -- first-order theorems that are ``really first-order'' (not known
-% to be effectively propositional), and contain some (not only) equality;
-{\tt TF0\_THM\_NEQ\_ARI} contains typed monomorphic first-order theorems that have no equality but 
-include arithmetic.
-The header section of each problem in the TPTP problem library (see Section~\ref{TPTP}) includes 
-its SPC.
-The SPCs are used when computing the TPTP problems difficulty ratings (see Section~\ref{Ratings}).
-
-\begin{figure}[bht]
-\centering
-\begin{packed_itemize}
-\item TPTP language: \\
-      \begin{tabular}{@{}p{5cm}l}
-      {\tt CNF} -- Clause Normal Form &
-      {\tt FOF} -- First-Order Form \\
-      {\tt TF0/1} -- Typed First-order & Monomorphic/Polymorphic \\
-      {\tt TX0/1} -- Typed eXtended f-o & Monomorphic/Polymorphic \\
-      {\tt TH0/1} -- Typed Higher-order & Monomorphic/Polymorphic \\
-      {\tt NX0/1} -- Non-classical {\tt TX0/1} &
-      {\tt NH0/1} -- Non-classical {\tt TH0/1} \\
-      \end{tabular}
-\item SZS status: \\
-      \begin{tabular}{@{}p{5cm}l}
-      {\tt THM} -- Theorem &
-      {\tt CSA} -- CounterSAtisfiable \\
-      {\tt CAX} -- Contradictory AXioms & \\
-      {\tt UNS} -- UNSatisfiable &
-      {\tt SAT} -- SATisfiable \\
-      {\tt UNK} -- UNKown &
-      {\tt OPN} -- OPeN \\
-      \end{tabular}
-\item Order (for {\tt CNF} and {\tt FOF}): \\
-      {\tt PRP} -- PRoPositional \\
-      {\tt EPR} -- Effectively PRopositional (known to be reducible to {\tt PRP}) \\
-      {\tt RFO} -- Real First-Order (not known to be reducible to {\tt PRP})
-\item Equality: \\
-      \begin{tabular}{@{}p{5cm}l}
-      {\tt NEQ} -- No EQuality &
-      {\tt EQU} -- EQUality (some or pure) \\
-      {\tt SEQ} -- Some (not pure) EQuality &
-      {\tt PEQ} -- Pure EQuality \\
-      {\tt UEQ} -- Unit EQuality {\tt CNF} &
-      {\tt NUE} -- Non-Unit Equality {\tt CNF} \\
-      \end{tabular}
-\item Hornness (for {\tt CNF}): \\
-      \begin{tabular}{@{}p{5cm}l}
-      {\tt HRN} -- HoRN &
-      {\tt NHN} -- Non-HorN
-      \end{tabular}
-\item Arithmetic (for {\tt T*} languages): \\
-      \begin{tabular}{@{}p{5cm}l}
-      {\tt ARI} -- ARIthmetic &
-      {\tt NAR} -- No ARithmetic
-      \end{tabular}
-\end{packed_itemize}
-\caption{SPC characteristics}
-\label{SPCCharacteristics}
-\end{figure} 
-
-Each TPTP problem has a difficulty rating that provides a well-defined measure of how difficult 
-the problem is for current ATP systems~\cite{SS01}.
-The ratings are based on performance data in the TSTP solution library (see Section~\ref{TSTP}), 
-and are updated in each TPTP edition.
-
-The TPTP tags problems that are designed specifically to be suited or ill-suited to some ATP
-system, calculus, or control strategy as {\em biased}
-(this includes the {\tt SYN000} problems, which are designed for testing ATP systems' parsers).
-The biased problems are excluded from the calculations.
-Rating is then done separately for each SPC (see Section~\ref{SPCs}).
-
-First, a partial order between systems is determined according to whether or not a system 
-solves a strict superset of the problems solved by another system. 
-If a strict superset is solved, the first system is said to {\em subsume} the second. 
-The union of the problems solved by the non-subsumed systems defines the state-of-the-art -- all 
-the problems that are solved by any system. 
-The fraction of non-subsumed systems that fail on a problem is the difficulty rating 
-for the problem:
-problems that are solved by all of the non-subsumed systems get a rating of 0.00 (easy);
-problems that are solved by some of the non-subsumed systems get a rating between 0.00 and 1.00 
-(difficult); 
-problems that are solved by none of the non-subsumed systems get a rating of 1.00 (unsolved).
-As additional output, the systems are given a rating for each SPC -- the fraction of difficult 
-problems they can solve.
-
-The TPTP difficulty ratings provide a way to assess progress in the field -- as problems that 
-are unchanged are not actually getting easier, decreases in their difficulty ratings are evidence 
-of progress in ATP systems.
-Figures~\ref{Ratings_v5.0.0_v6.4.0} and~\ref{Ratings_v6.3.0_v8.2.0} plot the average difficulty
-ratings overall and for each of the four language forms in the TPTP World (after some sensible
-data cleaning).
-Figure~\ref{Ratings_v5.0.0_v6.4.0} is taken from~\cite{Sut17}, published in 2017.
-It plots the average ratings for the 14527 problems that had been unchanged and whose ratings 
-had not been stuck at 0.00 or 1.00, from TPTP v5.0.0 that was released in 2010 to v6.4.0 that was
-released in 2016. 
-Figure~\ref{Ratings_v6.3.0_v8.2.0} is taken from~\cite{SK+24}, published in 2024.
-It plots the average ratings for the 16236 problems that had been unchanged and whose ratings 
-had not been stuck at 0.00 or 1.00, from TPTP v6.3.0 that was released in 2016 to v8.2.0 that was
-released in 2023. 
-The two figures’ plots dovetail quite well, which gives confidence that they really are 
-comparable (there are some minor differences caused by slightly different data cleaning 
-and by recent refinements to the difficulty rating calculations). 
-The older plots show a quite clear downward trend both overall and for the four language forms, 
-while the new plots do not. 
-Possible reasons are discussed in~\cite{SK+24}.
-
-% \begin{figure}[t!]
-% \centering
-% \begin{minipage}[t]{.49\textwidth}
-%   \centering
-%   \includegraphics[width=\textwidth]{RatingsDecline_v5.0.0_v6.4.0.pdf}
-%   \vspace*{-2em}
-%   \caption{Ratings from v5.0.0 to v6.4.0}
-%   \label{Ratings_v5.0.0_v6.4.0}
-% \end{minipage}
-% \begin{minipage}[t]{.49\textwidth}
-%   \centering
-%   \includegraphics[width=\textwidth]{RatingsDecline_v6.3.0_v8.2.0.pdf}
-%   \vspace*{-2em}
-%   \caption{Ratings from v6.3.0 to v8.2.0}
-%   \label{Ratings_v6.3.0_v8.2.0}
-% \end{minipage}
-% \end{figure}
+\section{Math Solutions}
+\label{MathSolutions}
 
 %--------------------------------------------------------------------------------------------------
-\subsection{SystemOnTPTP}
-\label{SystemOnTPTP}
+\section{Tools for Mathematicians}
+\label{Tools}
 
 and SystemOnTPTP~\cite{Sut00-CADE-17}.
 Some of the early users of the TPTP problem library (see Section~\ref{TPTP}) were working in
@@ -704,84 +608,6 @@ In 2023 there were 887287 requests serviced (an average of one every 36 seconds)
 countries.
 One heavy programmatic user is the Sledgehammer component of the interactive theorem prover
 Isabelle~\cite{PB10}.
-
-The TPTP problem library was motivated (see Section~\ref{TPTP}) by the need to provide support
-for meaningful ATP system evaluation.
-This need was also (or became) evident in other logic solver communities, e.g., 
-SAT~\cite{HS00-SATLIB} and SMT~\cite{CSW15}.
-For many years testing of logic solvers was done on individual developer's computers. 
-In 2010 a proposal for centralised hardware and software support was developed,
-and in 2011 a \$2.11 million NSF grant\footnote{%
-NSF Awards 1058748 and 1058925, led by Aaron Stump and Cesare Tinelli at the University of Iowa} 
-was obtained.
-This grant led to the development and availability of StarExec Iowa~\cite{SST14} in 2012,
-and a subsequent \$1.00 million grant\footnote{%
-NSF Award 1730419} in 2017 expanded StarExec to Miami.
-StarExec has been central to much progress in logic solvers over the last 10 years, supporting
-16 logic solver communities, used for running many annual competitions~\cite{BB+19}, and 
-supporting many many users.
-
-It was recently announced that StarExec Iowa will be decommissioned. 
-The maintainer of StarExec Iowa explained that ``the plan is to operate StarExec as usual for 
-competitions Summer 2024 and Summer 2025, and then put the system into a read-only mode for one 
-year (Summer 2025 to Summer 2026)''.
-While StarExec Miami will continue to operate while funding is available, it will not be able
-to support the large number of logic solver communities that use the larger StarExec Iowa cluster.
-In the long run it will be necessary for StarExec users to transition to new environments,
-and several plans are (at the time of writing) being discussed.
-One effort, funded by an Amazon Research Award\footnote{%
-Amazon Research Award ``Automated Theorem Proving Community Infrastructure in the AWS Cloud'',
-\href{https://www.amazon.science/research-awards/recipients/geoffrey-sutcliffe}{\tt www.amazon.science/research-awards/recipients/ geoffrey-sutcliffe}},
-is to containerise StarExec and ATP systems so they will run in a Kubernetes framework on 
-Amazon Web Services~\cite{FMS24}.
-This will allow communities and individual users to run their own StarExec.
-
-%--------------------------------------------------------------------------------------------------
-\section{Math Problems}
-\label{MathProblems}
-
-Table~\ref{Domains} lists the mathematical domains in the TPTP problem library v9.0.0, with 
-various measures that are described in the following sections - just look at the WHAT columns 
-for now.
-
-\begin{table}[htb]
-\begin{center}
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lr|rr|rrr}
-Domain              & TLM       & Abs  & Ver  & Equ & Thm & Rtg \\
-\hline
-Arithmetic          & {\tt ARI} &  681 &  693 & & & \\
-Set theory          & {\tt SET} & 2443 & 1429 & & & \\
-Graph theory        & {\tt GRA} &  116 &  175 & & & \\
-Relation algebra    & {\tt REL} &   53 &  223 & & & \\
-MV algebras         & {\tt MVA} &   15 &   15 & & & \\
-Boolean algebra     & {\tt BOO} &  105 &  150 & & & \\
-Robbins algebra     & {\tt ROB} &   34 &   48 & & & \\
-Left distributive   & {\tt LDA} &   41 &   50 & & & \\
-Lattices            & {\tt LAT} &  401 &  758 & & & \\
-Quantales           & {\tt QUA} &   21 &   21 & & & \\
-Kleene algebra      & {\tt KLE} &  182 &  257 & & & \\
-Groups              & {\tt GRP} &  821 & 1207 & & & \\
-Rings               & {\tt RNG} &  128 &  268 & & & \\
-Fields              & {\tt FLD} &  101 &  281 & & & \\
-Linear algebra      & {\tt LIN} &   15 &   15 & & & \\
-Homological algebra & {\tt HAL} &    7 &   10 & & & \\
-Real algebra        & {\tt RAL} &   70 &   70 & & & \\
-General Algebra     & {\tt ALG} &  444 &  551 & & & \\
-Number Theory       & {\tt NUM} & 1008 & 1811 & & & \\
-Topology            & {\tt TOP} &   53 &  136 & & & \\
-Analysis            & {\tt ANA} &  140 &  209 & & & \\
-Geometry            & {\tt GEO} &  659 &  982 & & & \\
-Category Theory     & {\tt CAT} &   38 &  136 & & & \\
-\end{tabular}
-\end{center}
-\caption{TPTP mathematical domains}
-\label{Domains}
-\end{table}
-
-%--------------------------------------------------------------------------------------------------
-\section{Math Solutions}
-\label{MathSolutions}
 
 %--------------------------------------------------------------------------------------------------
 \section{Conclusion}
