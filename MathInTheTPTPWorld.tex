@@ -169,7 +169,8 @@ Equality and inequality are expressed as the infix operators {\tt =} and {\tt !=
 The {\em source} and {\em useful\_info} are optional.
 Figure~\ref{ExampleFOF} shows an example set theory problem written in first-order logic
 (it is the TPTP problem {\tt SET002+3}), and Figure~\ref{ExampleTF0} shows an example
-arithmetic problem written in typed first-order logic (it is the TPTP problem {\tt ARI740\_1}).
+arithmetic problem written in typed first-order logic (it is a cutdown version of the TPTP 
+problem {\tt SEV421\_1}).
 
 \begin{figure}[htb]
 \centering
@@ -219,51 +220,45 @@ fof(prove_idempotency_of_union,conjecture,
 {\setlength{\baselineskip}{3mm}
 \begin{verbatim}
 %------------------------------------------------------------------------
-tff(power,type, power: ( $real * $int ) > $real ).
+tff(set_type,type,          set:          $tType ).
+tff(element_type,type,      element:      $tType ).
 
-tff(power_0,axiom,
-    ! [X: $real] : ( power(X,0) = 1.0 ) ).
+tff(empty_set_decl,type,    empty_set:    set ).
+tff(member_decl,type,       member:       ( element * set ) > $o ).
+tff(subset_decl,type,       subset:       ( set * set ) > $o ).
+tff(intersection_decl,type, intersection: ( set * set ) > set ).
+tff(union_decl,type,        union:        ( set * set ) > set ).
+tff(cardinality_decl,type,  cardinality:  set > $int ).
 
-tff(power_s,axiom,
-    ! [X: $real,N: $int] :
-      ( $lesseq(0,N) 
-     => ( power(X,$sum(N,1)) = $product(X,power(X,N)) ) ) ).
+tff(empty_set,axiom,
+    ! [S: set] :
+      ( ! [X: element] : ~ member(X,S) <=> ( S = empty_set ) ) ).
 
-tff(power_s_alt,axiom,
-    ! [X: $real,N: $int] :
-      ( $less(0,N) 
-     => ( power(X,N) = $product(X,power(X,$difference(N,1))) ) ) ).
+tff(subset,axiom,
+    ! [A: set,B: set] :
+      ( subset(A,B)
+    <=> ! [X: element] : ( member(X,A) => member(X,B) ) ) ).
 
-tff(power_1,axiom,
-    ! [X: $real] : ( power(X,1) = X ) ).
+tff(intersection,axiom,
+    ! [X: element,A: set,B: set] :
+      ( member(X,intersection(A,B)) <=> ( member(X,A) & member(X,B) )) ).
 
-tff(power_sum,axiom,
-    ! [X: $real,N: $int,M: $int] :
-      ( $lesseq(0,N)
-     => ( $lesseq(0,M) 
-       => ( power(X,$sum(N,M)) = $product(power(X,N),power(X,M)) ) ) ) ).
+tff(union,axiom,
+    ! [X: element,A: set,B: set] :
+      ( member(X,union(A,B)) <=> ( member(X,A) | member(X,B) ) ) ).
 
-tff(power_mult,axiom,
-    ! [X: $real,N: $int,M: $int] :
-      ( $lesseq(0,N)
-     => ( $lesseq(0,M) 
-       => ( power(X,$product(N,M)) = power(power(X,N),M) ) ) ) ).
+tff(cardinality_empty_set,axiom,
+    ! [S: set] :
+      ( ( cardinality(S) = 0 ) <=> ( S = empty_set ) ) ).
 
-tff(power_mult2,axiom,
-    ! [X: $real,Y: $real,N: $int] :
-      ( $lesseq(0,N)
-     => ( power($product(X,Y),N) = $product(power(X,N),power(Y,N)) ) ) ).
-
-tff(pow_ge_one,axiom,
-    ! [X: $real,N: $int] :
-      ( ( $lesseq(0,N) & $lesseq(1.0,X) ) => $lesseq(1.0,power(X,N)) ) ).
-
-tff(pow_2_2,conjecture,
-    power(2.0,2) = 4.0 ).
+tff(about_empty_sets,conjecture,
+    ! [X: element,C: set,Size: $int] :
+      ( ( ~ member(X,C) & ( Size = cardinality(C) ) )
+     => ( ( Size = 0 ) <=> ( C = empty_set ) ) ) ).
 %------------------------------------------------------------------------
 \end{verbatim}
 }}
-\caption{Arithmetic in typed first-order logic}
+\caption{Set theory with arithemtic in typed first-order logic}
 \label{ExampleTF0}
 \end{figure}
 
@@ -309,44 +304,37 @@ provides an example.
 {\setlength{\baselineskip}{2.5mm}
 \begin{verbatim}
 %------------------------------------------------------------------------------
-% File     : DAT016_1 : TPTP v8.2.0. Bugfixed v5.1.0.
-% Domain   : Data Structures
-% Problem  : Some element is 53
-% Version  : [PW06] axioms.
-% English  : Show that some element of the array has the value 53.
+% File     : SET002+3 : TPTP v9.0.0. Released v2.2.0.
+% Domain   : Set Theory
+% Problem  : Idempotency of union
+% Version  : [Try90] axioms : Reduced > Incomplete.
+% English  :
 
-% Refs     : [PW06]  Prevosto & Waldmann (2006), SPASS+T
-%          : [Wal10] Waldmann (2010), Email to Geoff Sutcliffe
-% Source   : [Wal10]
-% Names    : (40) [PW06]
+% Refs     : [ILF] The ILF Group (1998), The ILF System: A Tool for the Int
+%          : [Try90] Trybulec (1990), Tarski Grothendieck Set Theory
+%          : [TS89]  Trybulec & Swieczkowska (1989), Boolean Properties of
+% Source   : [ILF]
+% Names    : BOOLE (62) [TS89]
 
 % Status   : Theorem
-% Rating   : 0.25 v8.2.0, 0.12 v7.5.0, 0.30 v7.4.0, 0.12 v7.3.0, etc.
-% Syntax   : Number of formulae    :    6 (   1 unt;   3 typ;   0 def)
-%            Number of atoms       :   12 (   5 equ)
-%            Maximal formula atoms :    4 (   2 avg)
-%            Number of connectives :    4 (   0   ~;   1   |;   1   &)
-%                                         (   0 <=>;   2  =>;   0  <=;   0 <~>)
-%            Maximal formula depth :    6 (   5 avg)
-%            Maximal term depth    :    3 (   1 avg)
-%            Number of FOOLs       :    5 (   5 fml;   0 var)
-%            Number arithmetic     :   16 (   2 atm;   2 fun;   5 num;   7 var)
-%            Number of types       :    2 (   1 usr;   1 ari)
-%            Number of type conns  :    5 (   2   >;   3   *;   0   +;   0  <<)
-%            Number of predicates  :    3 (   1 usr;   0 prp; 2-2 aty)
-%            Number of functors    :    9 (   2 usr;   5 con; 0-3 aty)
-%            Number of variables   :   10 (   9   !;   1   ?;  10   :)
-% SPC      : TF0_THM_EQU_ARI
+% Rating   : 0.00 v9.0.0, 0.03 v8.1.0, 0.04 v6.3.0, 0.07 v6.0.0, 0.11 v2.7.0
+% Syntax   : Number of formulae    :    8 (   3 unt;   0 def)
+%            Number of atoms       :   17 (   5 equ)
+%            Maximal formula atoms :    3 (   2 avg)
+%            Number of connectives :    9 (   0   ~;   1   |;   1   &)
+%                                         (   5 <=>;   2  =>;   0  <=;   0 <~>)
+%            Maximal formula depth :    6 (   4 avg)
+%            Maximal term depth    :    2 (   1 avg)
+%            Number of predicates  :    3 (   2 usr;   0 prp; 2-2 aty)
+%            Number of functors    :    1 (   1 usr;   0 con; 2-2 aty)
+%            Number of variables   :   17 (  17   !;   0   ?)
+% SPC      : FOF_THM_RFO_SEQ
 
-% Comments : The array contains integers.
-% Bugfixes : v5.1.0 - Fixed conjecture
-%------------------------------------------------------------------------------
-%----Includes axioms for arrays
-include('Axioms/DAT001_0.ax').
+% Comments :
 %------------------------------------------------------------------------------
 \end{verbatim}
 }}
-\caption{Header of problem {\tt DAT016\_1}.}
+\caption{Header of problem {\tt SET002+3}.}
 \label{ExampleHeader}
 \end{figure}
 
@@ -397,55 +385,45 @@ header fields.
 {\setlength{\baselineskip}{2.5mm}
 \begin{verbatim}
 %------------------------------------------------------------------------------
-% File     : E---3.0.04
-% Problem  : Coffee 
+% File     : E---3.2.5
+% Problem  : SET002+3 : TPTP v9.0.0. Released v2.2.0.
 % Transfm  : none
 % Format   : tptp:raw
 % Command  : run_E %s %d THM
 
-% Computer : quokka.cs.miami.edu
+% Computer : n016.cluster.edu
 % Model    : x86_64 x86_64
-% CPU      : Intel(R) Xeon(R) CPU E5-2609 v2 @ 2.50GHz
-% Memory   : 64222MB
-% OS       : Linux 3.10.0-1160.36.2.el7.x86_64
-% CPULimit : 30s
-% WCLimit  : 0s
-% DateTime : Tue Feb 13 13:29:34 EST 2024
+% CPU      : Intel(R) Xeon(R) CPU E5-2620 v4 2.10GHz
+% Memory   : 8042.1875MB
+% OS       : Linux 3.10.0-693.el7.x86_64
+% CPULimit : 300s
+% WCLimit  : 300s
+% DateTime : Wed Apr  9 08:39:44 PM UTC 2025
 
-% Result   : Theorem 0.00s 0.08s
-% Output   : Refutation 0.00s
-% Verified :
+% Result   : Theorem 0.19s 0.48s
+% Output   : CNFRefutation 0.19s
+% Verified : 
 % SZS Type : Refutation
-%            Derivation depth      :    5
-%            Number of leaves      :   10
-% Syntax   : Number of formulae    :   19 (   8 unt;   7 typ;   0 def)
-%            Number of atoms       :   16 (   7 equ;   0 cnn)
+%            Derivation depth      :    4
+%            Number of leaves      :    3
+% Syntax   : Number of formulae    :   11 (   8 unt;   0 def)
+%            Number of atoms       :   14 (   7 equ)
 %            Maximal formula atoms :    2 (   1 avg)
-%            Number of connectives :   42 (   6   ~;   2   |;   2   &;  32   @)
-%                                         (   0 <=>;   0  =>;   0  <=;   0 <~>)
-%            Maximal formula depth :    7 (   5 avg)
-%            Number of types       :    3 (   2 usr)
-%            Number of type conns  :   11 (  11   >;   0   *;   0   +;   0  <<)
-%            Number of symbols     :    7 (   5 usr;   2 con; 0-2 aty)
-%            Number of variables   :   15 (   0   ^  13   !;   2   ?;  15   :)
+%            Number of connectives :    8 (   5   ~;   2   |;   0   &)
+%                                         (   0 <=>;   1  =>;   0  <=;   0 <~>)
+%            Maximal formula depth :    5 (   2 avg)
+%            Maximal term depth    :    2 (   1 avg)
+%            Number of predicates  :    3 (   1 usr;   1 prp; 0-2 aty)
+%            Number of functors    :    2 (   2 usr;   1 con; 0-2 aty)
+%            Number of variables   :   11 (   0 sgn   8   !;   0   ?)
 
-% Comments :
+% Comments : 
 %------------------------------------------------------------------------------
 \end{verbatim}
 }}
-\caption{Example derivation header}
+\caption{Header of proof for {\tt SET002+3}}
 \label{ExampleDerivationHeader}
 \end{figure}
-
-% thf(beverage_decl,type,   beverage: $tType ).
-% thf(syrup_decl,type,      syrup: $tType ).
-% thf(coffee_type,type,     coffee: beverage ).
-% thf(mix_type,type,        mix: beverage > syrup > beverage ).
-% thf(heat_type,type,       heat: beverage > beverage ).
-% thf(heated_mix_type,type, heated_mix: beverage > syrup > beverage ).
-% thf(hot_type,type,        hot: beverage > $o ).
-% thf(decl_27,type,         esk1_1: ( syrup > beverage ) > syrup ).
-% thf(decl_28,type,         esk2_1: ( syrup > beverage ) > syrup ).
 
 \begin{figure}[h!]
 \centering
@@ -453,49 +431,63 @@ header fields.
 {\setlength{\baselineskip}{3mm}
 \begin{verbatim}
 %------------------------------------------------------------------------
-thf(hot_coffee,conjecture,
-    ? [X3: syrup > beverage] :
-    ! [X2: syrup] :
-      ( ( ( X3 @ X2 ) = coffee ) & ( hot @ ( X3 @ X2 ) ) ),
-    file('Coffee.p',hot_coffee) ).
+fof(prove_idempotency_of_union,conjecture,
+    ! [X1] : union(X1,X1) = X1,
+    file('SET002+3.p',prove_idempotency_of_union) ).
 
-thf(heated_coffee_mix,axiom,
-    ! [X2: syrup] :
-      ( ( heated_mix @ coffee @ X2 ) = coffee ),
-    file('Coffee.p',heated_coffee_mix) ).
+fof(subset_union,axiom,
+    ! [X1,X2] :
+      ( subset(X1,X2)
+     => union(X1,X2) = X2 ),
+    file('SET002+3.p',subset_union) ).
 
-thf(hot_mixture,axiom,
-    ! [X1: beverage,X2: syrup] : ( hot @ ( heated_mix @ X1 @ X2 ) ),
-    file('Coffee.p',hot_mixture) ).
+fof(reflexivity_of_subset,axiom,
+    ! [X1] : subset(X1,X1),
+    file('SET002+3.p',reflexivity_of_subset) ).
 
-thf(c_0_3,negated_conjecture,
-    ~ ? [X3: syrup > beverage] :
-      ! [X2: syrup] :
-        ( ( ( X3 @ X2 ) = coffee ) & ( hot @ ( X3 @ X2 ) ) ),
-    inference(assume_negation,[status(cth)],[hot_coffee]) ).
+fof(c_0_3,negated_conjecture,
+    ~ ! [X1] : union(X1,X1) = X1,
+    inference(assume_negation,[status(cth)],
+      [prove_idempotency_of_union]) ).
 
-thf(c_0_4,negated_conjecture,
-    ! [X16: syrup > beverage] :
-      ( ( ( X16 @ ( esk1_1 @ X16 ) ) != coffee )
-      | ~ ( hot @ ( X16 @ ( esk2_1 @ X16 ) ) ) ),
-    inference(fof_nnf,[status(thm)],[inference(skolemize,[status(esa)],
-[inference(variable_rename,[status(thm)],[inference(shift_quantors,
-[status(thm)],[inference(fof_nnf,[status(thm)],[c_0_3])])])])]) ).
+fof(c_0_4,negated_conjecture,
+    union(esk1_0,esk1_0) != esk1_0,
+    inference(fof_nnf,[status(thm)],
+      [inference(skolemize,[status(esa)],
+        [inference(variable_rename,[status(thm)],
+          [inference(fof_nnf,[status(thm)],[c_0_3])])])]) ).
 
-thf(c_0_10,negated_conjecture,
-    ~ ( hot @ coffee ),
-    inference(cn,[status(thm)],[inference(rw,[status(thm)],
-[inference(spm,[status(thm)],[c_0_4,heated_coffee_mix]),
-heated_coffee_mix])]) ).
+fof(c_0_5,plain,
+    ! [X5,X6] :
+      ( ~ subset(X5,X6)
+      | union(X5,X6) = X6 ),
+    inference(fof_nnf,[status(thm)],
+      [inference(variable_rename,[status(thm)],
+        [inference(fof_nnf,[status(thm)],[subset_union])])]) ).
 
-thf(c_0_11,plain,
+cnf(c_0_7,negated_conjecture,
+    union(esk1_0,esk1_0) != esk1_0,
+    inference(split_conjunct,[status(thm)],[c_0_4]) ).
+
+cnf(c_0_8,plain,
+    ( union(X1,X2) = X2
+    | ~ subset(X1,X2) ),
+    inference(split_conjunct,[status(thm)],[c_0_5]) ).
+
+cnf(c_0_9,plain,
+    subset(X1,X1),
+    inference(split_conjunct,[status(thm)],[reflexivity_of_subset]) ).
+
+cnf(c_0_10,negated_conjecture,
     $false,
-    inference(sr,[status(thm)],[inference(spm,[status(thm)],
-[hot_mixture,heated_coffee_mix]),c_0_10]),[proof] ).
+    inference(cn,[status(thm)],
+      [inference(rw,[status(thm)],
+        [inference(spm,[status(thm)],[c_0_7,c_0_8]),c_0_9])]),
+    [proof] ).
 %------------------------------------------------------------------------
 \end{verbatim}
 }}
-\caption{Example derivation formulae}
+\caption{Proof for {\tt SET002+3}}
 \label{ExampleDerivationFormulae}
 \end{figure}
 
@@ -507,61 +499,6 @@ Recently the need to represent interpretations with infinite domains, and Kripke
 has led to the development of a new TPTP format that supports these interpretations~\cite{SSP24}.
 Figure~\ref{ExampleModel} shows the problem formulae and a model that uses integers as the domain.
 Please read~\cite{SSP24} for lots more details!
-
-\begin{figure}[h!]
-\centering
-{\footnotesize
-{\setlength{\baselineskip}{3mm}
-\begin{verbatim}
-%---- Problem formulae --------------------------------------------------
-tff(person_type,type,        person: $tType ).
-tff(bob_decl,type,           bob: person ).
-tff(child_of_decl,type,      child_of: person > person ).
-tff(is_descendant_decl,type, is_descendant: (person * person) > $o ).
-
-tff(descendents_different,axiom,
-    ! [A: person,D: person] : 
-      ( is_descendant(A,D) => ( A != D ) ) ).
-
-tff(descendent_transitive,axiom,
-    ! [A: person,C: person,G: person] :
-      ( ( is_descendant(A,C) & is_descendant(C,G) ) 
-     => is_descendant(A,G) ) ).
-
-tff(child_is_descendant,axiom,
-    ! [P: person] : is_descendant(P,child_of(P)) ).
-
-tff(all_have_child,axiom,
-    ! [P: person] : ? [C: person] : C = child_of(P) ).
-%------------------------------------------------------------------------
-
-%---- Model -------------------------------------------------------------
-tff(person_type,type,        person: $tType ).
-tff(bob_decl,type,           bob: person ).
-tff(child_of_decl,type,      child_of: person > person ).
-tff(is_descendant_decl,type, is_descendant: ( person * person ) > $o ).
-
-tff(int2person_decl,type,    int2person: $int > person ).
-
-tff(people,interpretation,
-%----Domain for type person is the integers
-    ( ( ! [P: person] : ? [I: $int] : int2person(I) = P
-%----The type promoter is a bijection (injective and surjective)
-      & ! [I1: $int,I2: $int] : 
-          ( int2person(I1) = int2person(I2) => I1 = I2 ) )
-%----Mapping people to integers. Note that Bob's ancestors will be 
-%----interpreted as negative integers.
-    & ( bob = int2person(0)
-      & ! [I: $int] : child_of(int2person(I)) = int2person($sum(I,1)) )
-%----Interpretation of descendancy
-    & ! [A: $int,D: $int] : 
-        ( is_descendant(int2person(A),int2person(D)) <=> $less(A,D) )) ).
-%------------------------------------------------------------------------
-\end{verbatim}
-}}
-\caption{Example infinite model}
-\label{ExampleModel}
-\end{figure}
 
 \paragraph{Resource Limits:}
 A common question, often based on mistaken beliefs, is whether the resource limits used should 
