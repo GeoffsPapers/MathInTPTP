@@ -114,10 +114,6 @@ Section~\ref{MathSolutions} covers the solutions to mathematical problems in the
 including some details of outstanding results in mathematics achieved with ATP.
 Section~\ref{Conclusion} concludes.
 
-%--------------------------------------------------------------------------------------------------
-\section{The TPTP World}
-\label{TPTPWorld}
-
 This section describes the parts of the TPTP World that are referred to in the subsequent sections 
 that describe the mathematics in the TPTP World.
 Salient components of the TPTP World are
@@ -132,7 +128,45 @@ and SystemOnTPTP for executing ATP systems and tools on the mathematical problem
 The web page \href{http://www.tptp.org}{{\tt www.tptp.org}} provides access to all components.
 
 %--------------------------------------------------------------------------------------------------
-\subsection{The TPTP Problem Library}
+\section{The TPTP Language}
+\label{Languages}
+
+The TPTP language~\cite{Sut23-IGPL} is one of the keys to the success of the TPTP World.
+The TPTP language is used for writing both problems and solutions,
+which enables convenient communication between ATP systems and tools.
+The TPTP language supports propositional, first-order, typed first-order, higher-order, and
+non-classical logics, each of which is useful for different types of mathematics.
+
+Problems and solutions are built from {\em annotated formulae} of the form: \\
+\hspace*{0.5cm}{\em language}{\tt (}{\em name}{\tt ,}
+{\em role}{\tt ,}
+{\em formula}{\tt ,}
+{\em source}{\tt ,}
+{\em useful\_info}{\tt )}\\
+The {\em language}s supported are {\smalltt{cnf}} (clause normal form), {\smalltt{fof}}
+(first-order form), {\smalltt{tff}} (typed first-order form), and {\smalltt{thf}}
+(typed higher-order form).
+The {\em role}, e.g., {\smalltt{axiom}}, {\smalltt{lemma}}, {\smalltt{conjecture}}, defines the 
+use of the formula.
+In a {\em formula}, terms and atoms follow Prolog conventions -- functions and predicates start 
+with a lowercase letter or are {\tt '}single quoted{\tt '}, and variables start with an uppercase 
+letter.
+The language also supports interpreted symbols that either start with a {\tt \$}, e.g., the 
+truth constants {\smalltt{\$true}} and {\smalltt{\$false}}, or are composed of 
+non-alphabetic characters, e.g., integer/rational/real numbers such as 27, 43/92, -99.66.
+The logical connectives in the TPTP language are
+{\tt !}, {\tt ?}, {\tt {\raisebox{0.4ex}{\texttildelow}}}, {\tt |}, {\tt \&}, {\tt =>}, {\tt <=},
+{\tt <=>}, and {\tt <{\raisebox{0.4ex}{\texttildelow}}>},
+for the mathematical connectives
+$\forall$, $\exists$, $\neg$, $\vee$, $\wedge$, $\Rightarrow$, $\Leftarrow$, $\Leftrightarrow$, 
+and $\oplus$ respectively.
+Equality and inequality are expressed as the infix operators {\tt =} and {\tt !=}.
+The {\em source} and {\em useful\_info} are optional.
+Figures~\ref{ExampleFOF} and~\ref{ExampleTF0} in Section~\ref{TPTP} show examples of formulae in
+problems, and Figure~\ref{ExampleDerivationFormulae} shows examples of formulae in a proof.
+
+%--------------------------------------------------------------------------------------------------
+\section{Mathematical Problems in the TPTP World}
 \label{TPTP}
 
 The TPTP problem library is a comprehensive library of test problems for ATP systems~\cite{Sut09}.
@@ -142,7 +176,71 @@ Seven main fields are defined: logic, mathematics, computer science, science \& 
 social sciences, arts \& humanities, and other. 
 Each field is subdivided into domains based mainly on the Dewey Decimal Classification and the 
 Mathematics Subject Classification, and each domain identified by a three-letter mnemonic.
-The mathematical domains of the TPTP are described in Section~\ref{MathProblems}.
+For a given {\em abstract} (mathematical) problem, the TPTP problem library can have multiple 
+concrete {\em versions}, which are the problems that ATP systems solve. 
+
+\begin{table}[tb]
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lr|rr|rrrr}
+Domain              & TLM       & Abs  & Ver  & Equ  & Thm  & Prv  & Rtg \\
+\hline
+Arithmetic          & {\tt ARI} &  681 &  693 &  367 &  668 &  663 & 0.11 \\
+Set theory          & {\tt SET} & 2443 & 1429 & 1324 & 1118 & 1083 & 0.47 \\
+Graph theory        & {\tt GRA} &  116 &  175 &   55 &  108 &   83 & 0.55 \\
+Relation algebra    & {\tt REL} &   53 &  223 &  223 &  218 &  212 & 0.50 \\
+MV algebras         & {\tt MVA} &   15 &   15 &   15 &   15 &    4 & 0.94 \\
+Boolean algebra     & {\tt BOO} &  105 &  150 &  149 &   79 &   79 & 0.49 \\
+Robbins algebra     & {\tt ROB} &   34 &   48 &   47 &   34 &   25 & 0.63 \\
+Left distributive   & {\tt LDA} &   41 &   50 &   50 &   23 &    7 & 0.77 \\
+Lattices            & {\tt LAT} &  401 &  758 &  746 &  628 &  531 & 0.69 \\
+Quantales           & {\tt QUA} &   21 &   21 &   21 &   20 &    8 & 0.72 \\
+Kleene algebra      & {\tt KLE} &  182 &  257 &  257 &  238 &  209 & 0.50 \\
+Groups              & {\tt GRP} &  821 & 1207 & 1078 & 1045 &  965 & 0.35 \\
+Rings               & {\tt RNG} &  128 &  268 &  259 &  226 &  215 & 0.47 \\
+Fields              & {\tt FLD} &  101 &  281 &    0 &  187 &  169 & 0.56 \\
+Linear algebra      & {\tt LIN} &   15 &   15 &   15 &   15 &    0 & -    \\
+Homological algebra & {\tt HAL} &    7 &   10 &   10 &    6 &    6 & 0.33 \\
+Real algebra        & {\tt RAL} &   70 &   70 &   70 &   70 &    0 & -    \\
+General Algebra     & {\tt ALG} &  444 &  551 &  549 &  487 &  418 & 0.42 \\
+Number Theory       & {\tt NUM} & 1008 & 1811 & 1525 & 1204 & 1006 & 0.55 \\
+Topology            & {\tt TOP} &   53 &  136 &  110 &  112 &   76 & 0.67 \\
+Analysis            & {\tt ANA} &  140 &  209 &  187 &  198 &  135 & 0.45 \\
+Geometry            & {\tt GEO} &  659 &  982 &  716 &  853 &  678 & 0.45 \\
+Category Theory     & {\tt CAT} &   38 &  136 &  135 &  103 &   88 & 0.51 \\
+\hline
+Total               &           & 7656 &11778 &10132 & 7655 & 6660 & 0.46 \\
+\end{tabular}
+\end{center}
+\caption{TPTP mathematical domain problems}
+\label{Domains}
+\end{table}
+
+Table~\ref{Domains} lists the mathematical domains in the TPTP problem library v9.0.0.
+The data columns provide the number of abstract problems, the number of problem versions, the
+number of problems with equality, the number of problems whose conjctures are known to be
+theorems, the number of those theorms that have been proved by some ATP system, and the average 
+difficulty rating (0.00 means easy, 1.00 means unsolved -- see Secion~\ref{Characteristics}) over 
+all the problems.
+
+ARI SET SEU SEV GRA REL MVA BOO ROB LDA LAT QUA KLE GRP RNG FLD LIN HAL RAL ALG NUM NUN TOP ANA GEO CAT
+
+Each TPTP problem version problem is stored in a separate physical file, using the naming scheme 
+{\em DDDNNNFV}.
+{\em DDD} is the domain mnemonic, {\em NNN} is the index of the abstract problem in the domain,
+{\em F} identifies the TPTP language, and {\em V} is the version index in the abstract problem.
+Each TPTP problem file has three parts: a header, optional includes, and annotated formulae.
+The header section contains information for users, as shown in Figure~\ref{ExampleHeader}.
+The header fields are self-explanatory, but of particular interest are the {\tt Status}, SPC,
+and Rating fields, which are explained in Section~\ref{Characteristics}.
+The include section of a problem file is optional, and if used contains {\tt include} directives 
+for axiom files, as in Figure~\ref{ExampleFOF}.
+Inclusion avoids the need for duplication of the formulae in commonly used axiomatizations.
+The TPTP World has many axiomatizations of mathematical theories.
+Figure~\ref{ExampleFOF} shows the include section and annotated formulae of the group theory 
+problem {\tt GRP194+1}, written in first-order logic, and Figure~\ref{ExampleTF0} shows a cutdown 
+version of the set theory problem {\tt SEV421\_1}, written in typed first-order logic.\footnote{%
+TPTP problems can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP/}}}
 
 \begin{figure}[htb]
 \centering
@@ -183,22 +281,6 @@ The mathematical domains of the TPTP are described in Section~\ref{MathProblems}
 \caption{Header of problem {\tt GRP194+1}}
 \label{ExampleHeader}
 \end{figure}
-
-For a given {\em abstract} (mathematical) problem, the TPTP problem library can have multiple 
-concrete {\em versions}, which are the problems that ATP systems solve. 
-Each problem is stored in a separate physical file, using the naming scheme {\em DDDNNNFV}.
-{\em DDD} is the domain mnemonic, {\em NNN} is the index of the abstract problem in the domain,
-{\em F} identifies the TPTP language, and {\em V} is the version index in the abstract problem.
-Each problem file has three parts: a header, optional includes, and annotated formulae.
-The header section contains information for users, as shown in Figure~\ref{ExampleHeader}.
-The header fields are self-explanatory, but of particular interest are the {\tt Status}, SPC,
-and Rating fields, which are explained in Section~\ref{Characteristics}.
-The include section of a problem file is optional, and if used contains {\tt include} directives 
-for axiom files, as in Figure~\ref{ExampleFOF}.
-Inclusion avoids the need for duplication of the formulae in commonly used axiomatizations.
-The TPTP World has many axiomatizations of mathematical theories, as described in 
-Section~\Ref{MathProblems}.
-The syntax of the annotated formulae of a problem is described in Section~\ref{Languages}.
 
 \begin{figure}[h!]
 \centering
@@ -291,56 +373,19 @@ tff(about_empty_sets,conjecture,
 \label{ExampleTF0}
 \end{figure}
 
-%--------------------------------------------------------------------------------------------------
-\subsection{The TPTP Language}
-\label{Languages}
-
-The TPTP language~\cite{Sut23-IGPL} is one of the keys to the success of the TPTP World.
-The TPTP language is used for writing both problems and solutions,
-which enables convenient communication between ATP systems and tools.
-The TPTP language supports propositional, first-order, typed first-order, higher-order, and
-non-classical logics, each of which is useful for different types of mathematics.
-
-Problems and solutions are built from {\em annotated formulae} of the form: \\
-\hspace*{0.5cm}{\em language}{\tt (}{\em name}{\tt ,}
-{\em role}{\tt ,}
-{\em formula}{\tt ,}
-{\em source}{\tt ,}
-{\em useful\_info}{\tt )}\\
-The {\em language}s supported are {\smalltt{cnf}} (clause normal form), {\smalltt{fof}}
-(first-order form), {\smalltt{tff}} (typed first-order form), and {\smalltt{thf}}
-(typed higher-order form).
-The {\em role}, e.g., {\smalltt{axiom}}, {\smalltt{lemma}}, {\smalltt{conjecture}}, defines the 
-use of the formula.
-In a {\em formula}, terms and atoms follow Prolog conventions -- functions and predicates start 
-with a lowercase letter or are {\tt '}single quoted{\tt '}, and variables start with an uppercase 
-letter.
-The language also supports interpreted symbols that either start with a {\tt \$}, e.g., the 
-truth constants {\smalltt{\$true}} and {\smalltt{\$false}}, or are composed of 
-non-alphabetic characters, e.g., integer/rational/real numbers such as 27, 43/92, -99.66.
-The logical connectives in the TPTP language are
-{\tt !}, {\tt ?}, {\tt {\raisebox{0.4ex}{\texttildelow}}}, {\tt |}, {\tt \&}, {\tt =>}, {\tt <=},
-{\tt <=>}, and {\tt <{\raisebox{0.4ex}{\texttildelow}}>},
-for the mathematical connectives
-$\forall$, $\exists$, $\neg$, $\vee$, $\wedge$, $\Rightarrow$, $\Leftarrow$, $\Leftrightarrow$, 
-and $\oplus$ respectively.
-Equality and inequality are expressed as the infix operators {\tt =} and {\tt !=}.
-The {\em source} and {\em useful\_info} are optional.
-Figure~\ref{ExampleFOF} shows the group theory problem {\tt GRP194+1} written in first-order logic
-(the header is shown in Figure~\ref{ExampleHeader}), and Figure~\ref{ExampleTF0} shows a cutdown 
-version of the set theory problem {\tt SEV421\_1}, written in typed first-order logic.\footnote{%
-TPTP problems can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP/}}}
+AXIOMATIZATIONS HERE
 
 %--------------------------------------------------------------------------------------------------
 \subsection{Status, SPC, and Rating}
 \label{Characteristics}
 
-The ``Status'' of a TPTP problem is given as an SZS ontology value~\cite{Sut08-KEAPPA}
+The ``Status'' of a TPTP problem, as in Figure~\ref{ExampleHeader}, is given as an SZS ontology 
+value~\cite{Sut08-KEAPPA}
 The ontologies~\cite{SZS03}) provide values to specify the logical status of problems and
 solutions, and to describe logical data.
 The Success ontology provides values for the logical status of a conjecture with respect to a 
 set of axioms, e.g., a TPTP problem whose conjecture is a logical consequence of the axioms 
-is tagged as a {\tt Theorem}, as in Figure~\ref{ExampleHeader}.
+is tagged as a {\tt Theorem}.
 The NoSuccess and Dataform ontologies are used in the output from ATP systems, as described in
 Section~\ref{TSTP}.
 The NoSuccess ontology provides reasons why an ATP system/tool has failed, e.g., an ATP system 
@@ -379,24 +424,70 @@ SPC homogeneous wrt ATP systems.
 An ATP system can be selected based on the SPC of the problem.
 The characteristics used to define the SPC of a problem are the TPTP language variant, the SZS
 status, the language order, use of equality, use of arithmetic.
-For example, the SPC {\tt TF0\_THM\_NEQ\_ARI} contains typed monomorphic first-order theorems 
+The header shown in Figure~\ref{ExampleHeader} shows that {\tt GRP194+1} is in the 
+SPC {\tt FOF\_THM\_RFO\_SEQ}, i.e., it's a first-order ({\tt FOF}) theorem ({\tt THM}) that
+is really first-order ({\tt RFO} - cannot be reduced to propositional logic), and contains some
+equality ({\tt SEQ}).
+For anoth example, the SPC {\tt TF0\_THM\_NEQ\_ARI} contains typed monomorphic first-order theorems 
 that have no equality but include arithmetic.
 
 Each TPTP problem has a difficulty rating that provides a well-defined measure of how difficult 
 the problem is for current ATP systems~\cite{SS01}.
 The ratings are based on performance data in the TSTP solution library (see Section~\ref{TSTP}), 
 done separately for each SPC.
-The TPTP difficulty ratings provide a way to assess progress in the field -- as problems that 
+The header shown in Figure~\ref{ExampleHeader} shows that {\tt GRP194+1} has a rating of 0.18 in
+TPTP version v9.0.0, and had higher ratings in earlier TPTP releases.
+Changes in difficulty ratings provide a way to assess progress in the field -- as problems that 
 are unchanged are not actually getting easier, decreases in their difficulty ratings are evidence 
 of progress in ATP systems.
 
 %--------------------------------------------------------------------------------------------------
-\subsection{The TSTP Solution Library}
+\section{Mathematical Solutions in the TPTP World}
 \label{TSTP}
 
 The complement to the TPTP problem library is the TSTP solution library~\cite{Sut07-CSR,Sut10}.
 The TSTP is built by running all the ATP systems that are available in the TPTP World on
 all the problems in the TPTP problem library.
+
+Table~\ref{Proofs} lists BLAH BLAH.
+
+\begin{table}[htb]
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lr|rrrrr}
+Domain              & TLM       & Thm  & Prv  & Sys & Size & Depth \\
+\hline
+Arithmetic          & {\tt ARI} &  668 &  663 &     &      &       \\
+Set theory          & {\tt SET} & 1118 & 1083 &     &      &       \\
+Graph theory        & {\tt GRA} &  108 &   83 &     &      &       \\
+Relation algebra    & {\tt REL} &  218 &  212 &     &      &       \\
+MV algebras         & {\tt MVA} &   15 &    4 &     &      &       \\
+Boolean algebra     & {\tt BOO} &   79 &   79 &     &      &       \\
+Robbins algebra     & {\tt ROB} &   34 &   25 &     &      &       \\
+Left distributive   & {\tt LDA} &   23 &    7 &     &      &       \\
+Lattices            & {\tt LAT} &  628 &  531 &     &      &       \\
+Quantales           & {\tt QUA} &   20 &    8 &     &      &       \\
+Kleene algebra      & {\tt KLE} &  238 &  209 &     &      &       \\
+Groups              & {\tt GRP} & 1045 &  965 &     &      &       \\
+Rings               & {\tt RNG} &  226 &  215 &     &      &       \\
+Fields              & {\tt FLD} &  187 &  169 &     &      &       \\
+Linear algebra      & {\tt LIN} &   15 &    0 &     &      &       \\
+Homological algebra & {\tt HAL} &    6 &    6 &     &      &       \\
+Real algebra        & {\tt RAL} &   70 &    0 &     &      &       \\
+General Algebra     & {\tt ALG} &  487 &  418 &     &      &       \\
+Number Theory       & {\tt NUM} & 1204 & 1006 &     &      &       \\
+Topology            & {\tt TOP} &  112 &   76 &     &      &       \\
+Analysis            & {\tt ANA} &  198 &  135 &     &      &       \\
+Geometry            & {\tt GEO} &  853 &  678 &     &      &       \\
+Category Theory     & {\tt CAT} &  103 &   88 &     &      &       \\
+\hline
+Total               &           & 7656 &11778 &     &      &       \\
+\end{tabular}
+\end{center}
+\caption{TPTP mathematical domain proofs}
+\label{Proofs}
+\end{table}
+
 TSTP solution files have a header section and annotated formulae.
 The header section has four parts, as shown in Figure~\ref{ExampleDerivationHeader}.
 the first part identifies the ATP system, the problem, and the system's runtime parameters,
@@ -521,95 +612,6 @@ cnf(c_0_33,hypothesis,
 \caption{Extract from proof for {\tt GRP194+1}}
 \label{ExampleDerivationFormulae}
 \end{figure}
-
-%--------------------------------------------------------------------------------------------------
-\section{Math Problems in the TPTP World}
-\label{MathProblems}
-
-Table~\ref{Domains} lists the mathematical domains in the TPTP problem library v9.0.0.
-The data columns provide the number of abstract problems, the number of problem versions, the
-number of problems with equality, the number of problems whose conjctures are known to be
-theorems, and the average rating for those problems.
-
-ARI SET SEU SEV GRA REL MVA BOO ROB LDA LAT QUA KLE GRP RNG FLD LIN HAL RAL ALG NUM NUN TOP ANA GEO CAT
-
-\begin{table}[htb]
-\begin{center}
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lr|rr|rrrr}
-Domain              & TLM       & Abs  & Ver  & Equ  & Thm  & Prv  & Rtg \\
-\hline
-Arithmetic          & {\tt ARI} &  681 &  693 &  367 &  668 &  663 & 0.11 \\
-Set theory          & {\tt SET} & 2443 & 1429 & 1324 & 1118 & 1083 & 0.47 \\
-Graph theory        & {\tt GRA} &  116 &  175 &   55 &  108 &   83 & 0.55 \\
-Relation algebra    & {\tt REL} &   53 &  223 &  223 &  218 &  212 & 0.50 \\
-MV algebras         & {\tt MVA} &   15 &   15 &   15 &   15 &    4 & 0.94 \\
-Boolean algebra     & {\tt BOO} &  105 &  150 &  149 &   79 &   79 & 0.49 \\
-Robbins algebra     & {\tt ROB} &   34 &   48 &   47 &   34 &   25 & 0.63 \\
-Left distributive   & {\tt LDA} &   41 &   50 &   50 &   23 &    7 & 0.77 \\
-Lattices            & {\tt LAT} &  401 &  758 &  746 &  628 &  531 & 0.69 \\
-Quantales           & {\tt QUA} &   21 &   21 &   21 &   20 &    8 & 0.72 \\
-Kleene algebra      & {\tt KLE} &  182 &  257 &  257 &  238 &  209 & 0.50 \\
-Groups              & {\tt GRP} &  821 & 1207 & 1078 & 1045 &  965 & 0.35 \\
-Rings               & {\tt RNG} &  128 &  268 &  259 &  226 &  215 & 0.47 \\
-Fields              & {\tt FLD} &  101 &  281 &    0 &  187 &  169 & 0.56 \\
-Linear algebra      & {\tt LIN} &   15 &   15 &   15 &   15 &    0 & -    \\
-Homological algebra & {\tt HAL} &    7 &   10 &   10 &    6 &    6 & 0.33 \\
-Real algebra        & {\tt RAL} &   70 &   70 &   70 &   70 &    0 & -    \\
-General Algebra     & {\tt ALG} &  444 &  551 &  549 &  487 &  418 & 0.42 \\
-Number Theory       & {\tt NUM} & 1008 & 1811 & 1525 & 1204 & 1006 & 0.55 \\
-Topology            & {\tt TOP} &   53 &  136 &  110 &  112 &   76 & 0.67 \\
-Analysis            & {\tt ANA} &  140 &  209 &  187 &  198 &  135 & 0.45 \\
-Geometry            & {\tt GEO} &  659 &  982 &  716 &  853 &  678 & 0.45 \\
-Category Theory     & {\tt CAT} &   38 &  136 &  135 &  103 &   88 & 0.51 \\
-\hline
-Total               &           & 7656 &11778 &10132 & 7655 & 6660 & 0.46 \\
-\end{tabular}
-\end{center}
-\caption{TPTP mathematical domain problems}
-\label{Domains}
-\end{table}
-
-%--------------------------------------------------------------------------------------------------
-\section{Math Solutions}
-\label{MathSolutions}
-
-\begin{table}[htb]
-\begin{center}
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lr|rrrrr}
-Domain              & TLM       & Thm  & Prv  & Sys & Size & Depth \\
-\hline
-Arithmetic          & {\tt ARI} &  668 &  663 &     &      &       \\
-Set theory          & {\tt SET} & 1118 & 1083 &     &      &       \\
-Graph theory        & {\tt GRA} &  108 &   83 &     &      &       \\
-Relation algebra    & {\tt REL} &  218 &  212 &     &      &       \\
-MV algebras         & {\tt MVA} &   15 &    4 &     &      &       \\
-Boolean algebra     & {\tt BOO} &   79 &   79 &     &      &       \\
-Robbins algebra     & {\tt ROB} &   34 &   25 &     &      &       \\
-Left distributive   & {\tt LDA} &   23 &    7 &     &      &       \\
-Lattices            & {\tt LAT} &  628 &  531 &     &      &       \\
-Quantales           & {\tt QUA} &   20 &    8 &     &      &       \\
-Kleene algebra      & {\tt KLE} &  238 &  209 &     &      &       \\
-Groups              & {\tt GRP} & 1045 &  965 &     &      &       \\
-Rings               & {\tt RNG} &  226 &  215 &     &      &       \\
-Fields              & {\tt FLD} &  187 &  169 &     &      &       \\
-Linear algebra      & {\tt LIN} &   15 &    0 &     &      &       \\
-Homological algebra & {\tt HAL} &    6 &    6 &     &      &       \\
-Real algebra        & {\tt RAL} &   70 &    0 &     &      &       \\
-General Algebra     & {\tt ALG} &  487 &  418 &     &      &       \\
-Number Theory       & {\tt NUM} & 1204 & 1006 &     &      &       \\
-Topology            & {\tt TOP} &  112 &   76 &     &      &       \\
-Analysis            & {\tt ANA} &  198 &  135 &     &      &       \\
-Geometry            & {\tt GEO} &  853 &  678 &     &      &       \\
-Category Theory     & {\tt CAT} &  103 &   88 &     &      &       \\
-\hline
-Total               &           & 7656 &11778 &     &      &       \\
-\end{tabular}
-\end{center}
-\caption{TPTP mathematical domain proofs}
-\label{Proofs}
-\end{table}
 
 \begin{itemize}
 \item Model finding ATP systems were used to solve previously open problems concerning the
