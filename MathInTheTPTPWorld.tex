@@ -179,52 +179,6 @@ Mathematics Subject Classification, and each domain identified by a three-letter
 For a given {\em abstract} (mathematical) problem, the TPTP problem library can have multiple 
 concrete {\em versions}, which are the problems that ATP systems solve. 
 
-\begin{table}[tb]
-\begin{center}
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lr|rr|rrrr}
-Domain              & TLM       & Abs  & Ver  & Equ  & Thm  & Prv  & Rtg \\
-\hline
-Arithmetic          & {\tt ARI} &  681 &  693 &  367 &  668 &  663 & 0.11 \\
-Set theory          & {\tt SET} & 2443 & 1429 & 1324 & 1118 & 1083 & 0.47 \\
-Graph theory        & {\tt GRA} &  116 &  175 &   55 &  108 &   83 & 0.55 \\
-Relation algebra    & {\tt REL} &   53 &  223 &  223 &  218 &  212 & 0.50 \\
-MV algebras         & {\tt MVA} &   15 &   15 &   15 &   15 &    4 & 0.94 \\
-Boolean algebra     & {\tt BOO} &  105 &  150 &  149 &   79 &   79 & 0.49 \\
-Robbins algebra     & {\tt ROB} &   34 &   48 &   47 &   34 &   25 & 0.63 \\
-Left distributive   & {\tt LDA} &   41 &   50 &   50 &   23 &    7 & 0.77 \\
-Lattices            & {\tt LAT} &  401 &  758 &  746 &  628 &  531 & 0.69 \\
-Quantales           & {\tt QUA} &   21 &   21 &   21 &   20 &    8 & 0.72 \\
-Kleene algebra      & {\tt KLE} &  182 &  257 &  257 &  238 &  209 & 0.50 \\
-Groups              & {\tt GRP} &  821 & 1207 & 1078 & 1045 &  965 & 0.35 \\
-Rings               & {\tt RNG} &  128 &  268 &  259 &  226 &  215 & 0.47 \\
-Fields              & {\tt FLD} &  101 &  281 &    0 &  187 &  169 & 0.56 \\
-Linear algebra      & {\tt LIN} &   15 &   15 &   15 &   15 &    0 & -    \\
-Homological algebra & {\tt HAL} &    7 &   10 &   10 &    6 &    6 & 0.33 \\
-Real algebra        & {\tt RAL} &   70 &   70 &   70 &   70 &    0 & -    \\
-General Algebra     & {\tt ALG} &  444 &  551 &  549 &  487 &  418 & 0.42 \\
-Number Theory       & {\tt NUM} & 1008 & 1811 & 1525 & 1204 & 1006 & 0.55 \\
-Topology            & {\tt TOP} &   53 &  136 &  110 &  112 &   76 & 0.67 \\
-Analysis            & {\tt ANA} &  140 &  209 &  187 &  198 &  135 & 0.45 \\
-Geometry            & {\tt GEO} &  659 &  982 &  716 &  853 &  678 & 0.45 \\
-Category Theory     & {\tt CAT} &   38 &  136 &  135 &  103 &   88 & 0.51 \\
-\hline
-Total               &           & 7656 &11778 &10132 & 7655 & 6660 & 0.46 \\
-\end{tabular}
-\end{center}
-\caption{TPTP mathematical domain problems}
-\label{Domains}
-\end{table}
-
-Table~\ref{Domains} lists the mathematical domains in the TPTP problem library v9.0.0.
-The data columns provide the number of abstract problems, the number of problem versions, the
-number of problems with equality, the number of problems whose conjctures are known to be
-theorems, the number of those theorms that have been proved by some ATP system, and the average 
-difficulty rating (0.00 means easy, 1.00 means unsolved -- see Secion~\ref{Characteristics}) over 
-all the problems.
-
-ARI SET SEU SEV GRA REL MVA BOO ROB LDA LAT QUA KLE GRP RNG FLD LIN HAL RAL ALG NUM NUN TOP ANA GEO CAT
-
 Each TPTP problem version problem is stored in a separate physical file, using the naming scheme 
 {\em DDDNNNFV}.
 {\em DDD} is the domain mnemonic, {\em NNN} is the index of the abstract problem in the domain,
@@ -281,21 +235,6 @@ TPTP problems can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP
 \caption{Header of problem {\tt GRP194+1}}
 \label{ExampleHeader}
 \end{figure}
-
-Each TPTP problem version problem is stored in a separate physical file, using the naming scheme 
-{\em DDDNNNFV}.
-{\em DDD} is the domain mnemonic, {\em NNN} is the index of the abstract problem in the domain,
-{\em F} identifies the TPTP language, and {\em V} is the version index in the abstract problem.
-Each TPTP problem file has three parts: a header, optional includes, and annotated formulae.
-The header section contains information for users, as shown in Figure~\ref{ExampleHeader}.
-The header fields are self-explanatory, but of particular interest are the {\tt Status}, SPC,
-and Rating fields, which are explained in Section~\ref{Characteristics}.
-The include section of a problem file is optional, and if used contains {\tt include} directives 
-for axiom files, as in Figure~\ref{ExampleFOF}.
-Figure~\ref{ExampleFOF} shows the include section and annotated formulae of the group theory 
-problem {\tt GRP194+1}, written in first-order logic, and Figure~\ref{ExampleTF0} shows a cutdown 
-version of the set theory problem {\tt SEV421\_1}, written in typed first-order logic.\footnote{%
-TPTP problems can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP/}}}
 
 \begin{figure}[tb]
 \centering
@@ -396,7 +335,7 @@ difficulty rating (0.00 means easy, 1.00 means unsolved -- see Secion~\ref{Chara
 all the problems.
 Observations from that table include:
 \begin{packed_itemize}
-\item Equality is used a lot, as one might expact in mathematics.
+\item Equality is used a lot, as one might expect in mathematics.
 \item Most of the problems have been solved by at least one of the available ATP systems.
 \item The problems are difficult on average, which in turn means that most of the problems have
       not been solved by most of the available ATP systems.
@@ -452,10 +391,10 @@ solutions, and to describe logical data.
 The Success ontology provides values for the logical status of a conjecture with respect to a 
 set of axioms, e.g., a TPTP problem whose conjecture is a logical consequence of the axioms 
 is tagged as a {\tt Theorem}.
-The NoSuccess and Dataform ontologies are used in the output from ATP systems, as described in
+The NoSuccess and DataForm ontologies are used in the output from ATP systems, as described in
 Section~\ref{TSTP}.
 The NoSuccess ontology provides reasons why an ATP system/tool has failed, e.g., an ATP system 
-might report {\tt Timeout}, and the Dataform ontology provides values for describing logical 
+might report {\tt Timeout}, and the DataForm ontology provides values for describing logical 
 data.
 Some commonly used ontology values are listed in Figure~\ref{SZSTable}.
 
@@ -487,18 +426,22 @@ Some commonly used ontology values are listed in Figure~\ref{SZSTable}.
 The TPTP problem library is divided into Specialist Problem Classes (SPCs) of problems with 
 recognizable logical, language, and syntactic characteristics, which make the problems in each 
 SPC homogeneous wrt ATP systems.
-An ATP system can be selected based on the SPC of the problem.
 The characteristics used to define the SPC of a problem are the TPTP language variant, the SZS
 status, the language order, use of equality, use of arithmetic.
 The header shown in Figure~\ref{ExampleHeader} shows that {\tt GRP194+1} is in the 
 SPC {\tt FOF\_THM\_RFO\_SEQ}, i.e., it's a first-order ({\tt FOF}) theorem ({\tt THM}) that
 is really first-order ({\tt RFO} - cannot be reduced to propositional logic), and contains some
 equality ({\tt SEQ}).
-For anoth example, the SPC {\tt TF0\_THM\_NEQ\_ARI} contains typed monomorphic first-order theorems 
-that have no equality but include arithmetic.
+For another example, the SPC {\tt TF0\_THM\_NEQ\_ARI} contains typed monomorphic first-order 
+theorems that have no equality but include arithmetic.
+ATP systems are rated in each SPC based on their performance data in the TSTP solution library 
+(see Section~\ref{TSTP}), which provides a basis for selecting an ATP system to attempt a problem,
+by determining the problem's SPC.
 
 Each TPTP problem has a difficulty rating that provides a well-defined measure of how difficult 
 the problem is for current ATP systems~\cite{SS01}.
+The ratings range from 0.00 (easy -- solvable by all ATP systems), through 0.01-0.99 (difficult -- 
+solvable by some ATP systems), to 1.00 (hard -- solable by no ATP systems).
 The ratings are based on performance data in the TSTP solution library (see Section~\ref{TSTP}), 
 done separately for each SPC.
 The header shown in Figure~\ref{ExampleHeader} shows that {\tt GRP194+1} has a rating of 0.18 in
@@ -599,8 +542,14 @@ The data columns provide the number of base axiom sets, the number of augmenting
 the number of problems that include the domains' axiom sets.
 Observations from that table include:
 \begin{packed_itemize}
-\item OBSERVE
+\item Each base axiom set is used 64 times on average.
+\item The set theory axiom sets are used the most, with each base axiom set being used 105
+      times on average.
+\item ZZZZZ
 \end{packed_itemize}
+
+Note {\tt SET007} is omiited, with its 930 augmenting sets. ZZZZZZ
+Sepcial case for Mizar encoding.
 
 \begin{table}[tb]
 \begin{center}
@@ -639,9 +588,6 @@ Total               &   64 &   33 & 4110 \\
 \label{AxiomSets}
 \end{table}
 
-Note {\tt SET007} is omiited, with its 930 augmenting sets.
-Sepcial case for Mizar encoding.
-
 %--------------------------------------------------------------------------------------------------
 \section{Mathematical Solutions in the TPTP World}
 \label{TSTP}
@@ -649,45 +595,6 @@ Sepcial case for Mizar encoding.
 The complement to the TPTP problem library is the TSTP solution library~\cite{Sut07-CSR,Sut10}.
 The TSTP is built by running all the ATP systems that are available in the TPTP World on
 all the problems in the TPTP problem library.
-
-Table~\ref{Proofs} lists BLAH BLAH.
-
-\begin{table}[htb]
-\begin{center}
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lr|rrrrr}
-Domain              & TLM       & Thm  & Prv  & Sys & Size & Depth \\
-\hline
-Arithmetic          & {\tt ARI} &  668 &  663 &     &      &       \\
-Set theory          & {\tt SET} & 1118 & 1083 &     &      &       \\
-Graph theory        & {\tt GRA} &  108 &   83 &     &      &       \\
-Relation algebra    & {\tt REL} &  218 &  212 &     &      &       \\
-MV algebras         & {\tt MVA} &   15 &    4 &     &      &       \\
-Boolean algebra     & {\tt BOO} &   79 &   79 &     &      &       \\
-Robbins algebra     & {\tt ROB} &   34 &   25 &     &      &       \\
-Left distributive   & {\tt LDA} &   23 &    7 &     &      &       \\
-Lattices            & {\tt LAT} &  628 &  531 &     &      &       \\
-Quantales           & {\tt QUA} &   20 &    8 &     &      &       \\
-Kleene algebra      & {\tt KLE} &  238 &  209 &     &      &       \\
-Groups              & {\tt GRP} & 1045 &  965 &     &      &       \\
-Rings               & {\tt RNG} &  226 &  215 &     &      &       \\
-Fields              & {\tt FLD} &  187 &  169 &     &      &       \\
-Linear algebra      & {\tt LIN} &   15 &    0 &     &      &       \\
-Homological algebra & {\tt HAL} &    6 &    6 &     &      &       \\
-Real algebra        & {\tt RAL} &   70 &    0 &     &      &       \\
-General Algebra     & {\tt ALG} &  487 &  418 &     &      &       \\
-Number Theory       & {\tt NUM} & 1204 & 1006 &     &      &       \\
-Topology            & {\tt TOP} &  112 &   76 &     &      &       \\
-Analysis            & {\tt ANA} &  198 &  135 &     &      &       \\
-Geometry            & {\tt GEO} &  853 &  678 &     &      &       \\
-Category Theory     & {\tt CAT} &  103 &   88 &     &      &       \\
-\hline
-Total               &           & 7656 &11778 &     &      &       \\
-\end{tabular}
-\end{center}
-\caption{TPTP mathematical domain proofs}
-\label{Proofs}
-\end{table}
 
 TSTP solution files have a header section and annotated formulae.
 The header section has four parts, as shown in Figure~\ref{ExampleDerivationHeader}.
@@ -823,7 +730,10 @@ the TPTP problem library, and the SPC of the problem -- most systems are limited
 of problems.
 Observations from that table include:
 \begin{packed_itemize}
-\item OBSERVE
+\item Most ATP systems' attempts (76\%) to prove a theorem are unsuccessful.
+\item Most ATP systems' successes (75\%) output an explicit proof object.
+\item There is low correlation between problem rating and proof size (0.07),
+      between rating and proof depth (0.22).
 \end{packed_itemize}
 
 \begin{table}[tb]
@@ -919,19 +829,14 @@ member of the group {\tt h} (see Figure~\ref{ExampleFOF}).
 \section{ATP Contributions to Mathematics}
 \label{Contributions}
 
-\paragraph{Cross-verification of Mizar:}
-A large library of formally verified mathematics.
-Published in the Journal of Formalized Mathematics.
-Based on first-order classical logic and Tarski-Grothendieck set theory.
-New theorems are build on previous theorems.
-Contains articles that contain theorems that contain natural deduction steps that 
-contain simple justifications.
-The Mizar tool is a proof checker for MML theorems
-Cross-verification Approach:
-Convert Mizar theorems to first-order problems.
-Prove the first-order problems.
-Convert Mizar proofs to first-order derivations.
-View and verify the first-order derivations.
+ZZZZZZZZZZZZZZ
+
+\paragraph{A Circle of Pure Proofs:}
+Larry Wos' challenge to find a ``circle of pure proofs'' that shows the equivalence
+of the four Moufang identities \cite{Wos19} was met by careful application \cite{Ver22} of
+Otter \cite{McC03-Otter} in 2021.
+While those specific problems are not in the TPTP, many related problems are in the
+ring theory ({\tt RNG}) domain of the TPTP.
 
 \paragraph{Development of Fundamental Mathematical Theories:}
 Van-Neuman-Bernays-Gödel set theory\cite{Qua92-JAR},
@@ -950,7 +855,7 @@ The first inner five-segment theorem of Tarski's geometry \cite{SST83} was first
 automatically proved by E \cite{Sch13-LPAR} in 2019, after being posed by Quaife in
 1989 \cite{Qua89}.
 
-\paragraph{John Slaney's Quasigroups:}
+\paragraph{Quasigroups:}
 About Quasigroups: A cancellative monoid, i.e., the operator forms a Latin Square, 
 i.e., each row and column is a permutation of the elements.
 Related to design theory
@@ -964,6 +869,20 @@ is there a (3,2,1)-COILS(12)? - Too hard :-(
 First proofs: Model finding ATP systems were used to solve previously open problems concerning the
 existence of quasigroups satisfying certain additional conditions \cite{SFS95}.
 Many examples are in the {\tt GRP} domain of the TPTP.
+
+\paragraph{Cross-verification of Mizar:}
+A large library of formally verified mathematics.
+Published in the Journal of Formalized Mathematics.
+Based on first-order classical logic and Tarski-Grothendieck set theory.
+New theorems are build on previous theorems.
+Contains articles that contain theorems that contain natural deduction steps that 
+contain simple justifications.
+The Mizar tool is a proof checker for MML theorems
+Cross-verification Approach:
+Convert Mizar theorems to first-order problems.
+Prove the first-order problems.
+Convert Mizar proofs to first-order derivations.
+View and verify the first-order derivations.
 
 \paragraph{Results from the AIM project:}
 The Aim of AIM
@@ -981,13 +900,6 @@ Two Mathematicians and a Computer Scientist Walk into a Bar
 Michael Kinyon
 Petr VojtÄ›chovskÃ½
 Robert Veroff
-
-\paragraph{A Circle of Pure Proofs:}
-Larry Wos' challenge to find a ``circle of pure proofs'' that shows the equivalence
-of the four Moufang identities \cite{Wos19} was met by careful application \cite{Ver22} of
-Otter \cite{McC03-Otter} in 2021.
-While those specific problems are not in the TPTP, many related problems are in the
-ring theory ({\tt RNG}) domain of the TPTP.
 
 \paragraph{The solution of the Robbins problem:}
 The Robbins problem was posed in personal communications between Edward Huntington,
@@ -1014,36 +926,7 @@ Builds on work by Steve Winker
 \section{Conclusion}
 \label{Conclusion}
 
-This paper has described key components of the TPTP World that help make it a success,
-linking them together as ``stepping stones'' that lead from one component to another.
-The large number of citations to work of others, and explicitly Section~\ref{Users}, 
-illustrate how the TPTP World has benefited, and benefited from, users in the ATP community.
-I am also grateful to the many people who have donated hard cash to the project, helping
-to keep it alive!
-
-This paper has naturally focused on the successful parts of the TPTP World.
-There have also been some failed developments and suboptimal (in retrospect) decisions \frownie{}.
-For example, in 2015 there was an attempt to develop a description logic form for the TPTP 
-language. 
-While some initial progress was made, it ground to a halt without support from the description 
-logic community.
-A suboptimal design decision, rooted in the early days of the TPTP, is the naming scheme used for 
-problem files. 
-The naming scheme uses three digits to number the problems in each domain, thus setting a limit 
-of 1000 problems, which failed to anticipate the numbers of problems that would be contributed 
-to some of the problem domains.
-This has been overcome by creating multiple domain directories where necessary, but if it were 
-to be done again, six or eight digit problem numbers shared across all domains would be an 
-improvement.
-
-The maintenance and development of the TPTP World is ongoing work.
-The most recent development is the languages and support for non-classical logics, initially
-modal logic~\cite{SF+22,SS24}.
-The new format for representing interpretations (see Section~\ref{TSTP}) will be promulgated in 
-the near future.
-As always, the ongoing success and utility of the TPTP problem library depends on ongoing 
-contributions of problems -- the automated reasoning community is encouraged to continue making 
-contributions of all types of problems.
+ZZZZZZZZZZZZZ
 
 The TPTP World would not exist without the early strategic insights of Christian Suttner,
 with his willingness to let me do the organization without interference. 
