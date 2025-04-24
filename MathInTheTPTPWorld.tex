@@ -96,7 +96,7 @@ to the mathematical language.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=0.6\textwidth]{UseOfAR.pdf}
+\includegraphics[width=1.0\textwidth]{UseOfAR.pdf}
 \vspace*{-1em}
 \caption{Use of Automated Reasoning}
 \label{UseOfAR}
@@ -282,7 +282,22 @@ TPTP problems can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP
 \label{ExampleHeader}
 \end{figure}
 
-\begin{figure}[h!]
+Each TPTP problem version problem is stored in a separate physical file, using the naming scheme 
+{\em DDDNNNFV}.
+{\em DDD} is the domain mnemonic, {\em NNN} is the index of the abstract problem in the domain,
+{\em F} identifies the TPTP language, and {\em V} is the version index in the abstract problem.
+Each TPTP problem file has three parts: a header, optional includes, and annotated formulae.
+The header section contains information for users, as shown in Figure~\ref{ExampleHeader}.
+The header fields are self-explanatory, but of particular interest are the {\tt Status}, SPC,
+and Rating fields, which are explained in Section~\ref{Characteristics}.
+The include section of a problem file is optional, and if used contains {\tt include} directives 
+for axiom files, as in Figure~\ref{ExampleFOF}.
+Figure~\ref{ExampleFOF} shows the include section and annotated formulae of the group theory 
+problem {\tt GRP194+1}, written in first-order logic, and Figure~\ref{ExampleTF0} shows a cutdown 
+version of the set theory problem {\tt SEV421\_1}, written in typed first-order logic.\footnote{%
+TPTP problems can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP/}}}
+
+\begin{figure}[tb]
 \centering
 {\footnotesize
 {\setlength{\baselineskip}{3mm}
@@ -373,7 +388,58 @@ tff(about_empty_sets,conjecture,
 \label{ExampleTF0}
 \end{figure}
 
-AXIOMATIZATIONS HERE
+Table~\ref{Domains} lists the mathematical domains in the TPTP problem library v9.0.0.
+The data columns provide the number of abstract problems, the number of problem versions, the
+number of problems with equality, the number of problems whose conjctures are known to be
+theorems, the number of those theorems that have been proved by some ATP system, and the average 
+difficulty rating (0.00 means easy, 1.00 means unsolved -- see Secion~\ref{Characteristics}) over 
+all the problems.
+Observations from that table include:
+\begin{packed_itemize}
+\item Equality is used a lot, as one might expact in mathematics.
+\item Most of the problems have been solved by at least one of the available ATP systems.
+\item The problems are difficult on average, which in turn means that most of the problems have
+      not been solved by most of the available ATP systems.
+\end{packed_itemize}
+
+% SET SEU SEV GRA REL MVA BOO ROB LDA LAT QUA KLE GRP RNG FLD LIN HAL RAL ALG ARI NUM NUN TOP ANA GEO CAT
+
+\begin{table}[tb]
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lr|rr|rrrr}
+Domain              & TLM       & Abs  & Ver  & Equ  & Thm  & Sol  & Rtg \\
+\hline
+Set theory          & {\tt SET} & 2443 & 3712 & 2965 & 3223 & 2934 & 0.49 \\
+Graph theory        & {\tt GRA} &  116 &  175 &   54 &  108 &   83 & 0.42 \\
+Relation algebra    & {\tt REL} &   53 &  223 &  218 &  218 &  212 & 0.49 \\
+MV algebras         & {\tt MVA} &   15 &   15 &   15 &   15 &    4 & 0.94 \\
+Boolean algebra     & {\tt BOO} &  105 &  150 &   78 &   79 &   79 & 0.16 \\
+Robbins algebra     & {\tt ROB} &   34 &   48 &   33 &   34 &   25 & 0.54 \\
+Left distributive   & {\tt LDA} &   41 &   50 &   23 &   23 &    7 & 0.73 \\
+Lattices            & {\tt LAT} &  401 &  758 &  616 &  628 &  531 & 0.69 \\
+Quantales           & {\tt QUA} &   21 &   21 &   20 &   20 &    8 & 0.72 \\
+Kleene algebra      & {\tt KLE} &  182 &  257 &  238 &  238 &  209 & 0.53 \\
+Groups              & {\tt GRP} &  821 & 1207 &  970 & 1045 &  965 & 0.33 \\
+Rings               & {\tt RNG} &  128 &  268 &  217 &  226 &  215 & 0.44 \\
+Fields              & {\tt FLD} &  101 &  281 &    0 &  187 &  169 & 0.34 \\
+Linear algebra      & {\tt LIN} &   15 &   15 &   15 &   15 &    0 & -    \\
+Homological algebra & {\tt HAL} &    7 &   10 &    6 &    6 &    6 & 0.52 \\
+Real algebra        & {\tt RAL} &   70 &   70 &   70 &   70 &    0 & -    \\
+General Algebra     & {\tt ALG} &  444 &  551 &  485 &  487 &  418 & 0.38 \\
+Arithmetic          & {\tt ARI} &  681 &  693 &  348 &  668 &  663 & 0.11 \\
+Number Theory       & {\tt NUM} & 1008 & 1811 & 1182 & 1314 & 1006 & 0.39 \\
+Topology            & {\tt TOP} &   53 &  136 &  105 &  112 &   76 & 0.76 \\
+Analysis            & {\tt ANA} &  140 &  209 &  105 &  198 &  135 & 0.42 \\
+Geometry            & {\tt GEO} &  659 &  982 &  607 &  853 &  678 & 0.37 \\
+Category Theory     & {\tt CAT} &   38 &  136 &  102 &  103 &   88 & 0.44 \\
+\hline
+Total               &           & 7656 & 9870 & 8548 & 9870 & 8588 & 0.40 \\
+\end{tabular}
+\end{center}
+\caption{TPTP mathematical domain problems}
+\label{Domains}
+\end{table}
 
 %--------------------------------------------------------------------------------------------------
 \subsection{Status, SPC, and Rating}
@@ -440,6 +506,141 @@ TPTP version v9.0.0, and had higher ratings in earlier TPTP releases.
 Changes in difficulty ratings provide a way to assess progress in the field -- as problems that 
 are unchanged are not actually getting easier, decreases in their difficulty ratings are evidence 
 of progress in ATP systems.
+
+%--------------------------------------------------------------------------------------------------
+\subsection{Axiom Sets}
+\label{AxiomsSets}
+
+Many problems in the TPTP are based on a common set of axioms.
+To ensure consistency and avoid duplication in problems, commonly used axiomatizations are
+factored out into axiom files that can be included in problem files, as done in
+Figure~\ref{ExampleFOF}.
+Axiomatizations typically have a base axiom set indexed 0, which can be augmented by additional
+axioms sets indexed 1 onwards.
+Each TPTP axiom set is stored in a separate physical file, using the naming scheme
+{\em DDDNNNFV}.
+{\em DDD} is the domain mnemonic, {\em NNN} is the index of the axiom set the domain,
+{\em F} identifies the TPTP language, and {\em V} is the index in the axiomatization.
+Each TPTP axiom file has two parts: a header and annotated formulae.
+The header section contains information similar to that for problems, as shown in 
+Figure~\ref{ExampleHeader}.
+Figure~\ref{ExampleAxioms0} shows the annotated formulae of the lattice theory axiom set 
+{\tt LAT001-0}, written in the clause normal form of first-order logic, and 
+Figure~\ref{ExampleAxioms1} shows the formulae of the augmenting modularity axiom set.\footnote{%
+TPTP axiom sets can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP/}}}
+
+\begin{figure}[tb]
+\centering
+{\footnotesize
+{\setlength{\baselineskip}{3mm}
+\begin{verbatim}
+%------------------------------------------------------------------------
+cnf(idempotence_of_meet,axiom,
+    meet(X,X) = X ).
+
+cnf(idempotence_of_join,axiom,
+    join(X,X) = X ).
+
+cnf(absorption1,axiom,
+    meet(X,join(X,Y)) = X ).
+
+cnf(absorption2,axiom,
+    join(X,meet(X,Y)) = X ).
+
+cnf(commutativity_of_meet,axiom,
+    meet(X,Y) = meet(Y,X) ).
+
+cnf(commutativity_of_join,axiom,
+    join(X,Y) = join(Y,X) ).
+
+cnf(associativity_of_meet,axiom,
+    meet(meet(X,Y),Z) = meet(X,meet(Y,Z)) ).
+
+cnf(associativity_of_join,axiom,
+    join(join(X,Y),Z) = join(X,join(Y,Z)) ).
+%------------------------------------------------------------------------
+\end{verbatim}
+}}
+\caption{Lattice theory axiom set {\tt LAT001-0} in clause normal form}
+\label{ExampleAxioms0}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+{\footnotesize
+{\setlength{\baselineskip}{3mm}
+\begin{verbatim}
+%------------------------------------------------------------------------
+cnf(x_meet_0,axiom,
+    meet(X,n0) = n0 ).
+
+cnf(x_join_0,axiom,
+    join(X,n0) = X ).
+
+cnf(x_meet_1,axiom,
+    meet(X,n1) = X ).
+
+cnf(x_join_1,axiom,
+    join(X,n1) = n1 ).
+
+%----Require the lattice to be modular
+cnf(modular,axiom,
+    ( meet(X,Z) != X
+    | meet(Z,join(X,Y)) = join(X,meet(Y,Z)) ) ).
+%------------------------------------------------------------------------
+\end{verbatim}
+}}
+\caption{Lattice theory modularity axiom set {\tt LAT001-1} in clause normal form}
+\label{ExampleAxioms1}
+\end{figure}
+
+Table~\ref{AxiomSets} lists the mathematical axiom sets in the TPTP problem library v9.0.0.
+The data columns provide the number of base axiom sets, the number of augmenting sets, and
+the number of problems that include the domains' axiom sets.
+Observations from that table include:
+\begin{packed_itemize}
+\item OBSERVE
+\end{packed_itemize}
+
+\begin{table}[tb]
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l|rrr}
+Domain              & Base & Aug  & Uses \\
+\hline
+Set theory          &    9 &   10 & 941  \\
+Graph theory        &    1 &    0 &  19  \\
+Relation algebra    &    2 &    2 & 218  \\
+MV algebras         &    1 &    0 &  15  \\
+Boolean algebra     &    4 &    0 &  53  \\
+Robbins algebra     &    1 &    1 &  45  \\
+Left distributive   &    0 &    0 &  20  \\
+Lattices            &    6 &    6 & 250  \\
+Quantales           &    1 &    1 &  21  \\
+Kleene algebra      &    0 &    0 & 241  \\
+Groups              &   10 &    5 & 386  \\
+Rings               &    5 &    0 &  92  \\
+Fields              &    2 &    0 & 281  \\
+Linear algebra      &    0 &    0 &   0  \\
+Homological algebra &    1 &    0 &  10  \\
+Real algebra        &    0 &    0 &   0  \\
+General Algebra     &    4 &    0 &  55  \\
+Arithmetic          &    0 &    0 &   0  \\
+Number Theory       &    9 &    8 & 529  \\
+Topology            &    1 &    0 &  24  \\
+Analysis            &    3 &    0 &  44  \\
+Geometry            &    0 &    0 & 805  \\
+Category Theory     &    4 &    0 &  61  \\
+\hline
+Total               &   64 &   33 & 4110 \\
+\end{tabular}
+\end{center}
+\caption{TPTP mathematical axiom sets}
+\label{AxiomSets}
+\end{table}
+
+Note {\tt SET007} is omiited, with its 930 augmenting sets.
+Sepcial case for Mizar encoding.
 
 %--------------------------------------------------------------------------------------------------
 \section{Mathematical Solutions in the TPTP World}
@@ -613,30 +814,54 @@ cnf(c_0_33,hypothesis,
 \label{ExampleDerivationFormulae}
 \end{figure}
 
-\begin{itemize}
-\item Model finding ATP systems were used to solve previously open problems concerning the
-      existence of quasigroups satisfying certain additional conditions \cite{SFS95}.
-      Many examples are in the {\tt GRP} domain of the TPTP.
-\item The solution of the Robbins problem\footnote{%
-      The Robbins problem was posed in personal communications between Edward Huntington,
-      Herbert Robbins, and Alfred Tarski.
-      The background is given in
-      \href{https://en.wikipedia.org/wiki/Robbins_algebra}{en.wikipedia.org/wiki/Robbins\_algebra}.}
-      by the specialist ATP system EQP \cite{McC97}
-      in 1996 was a noteworthy success, as the problem had defied the efforts of eminent
-      mathematicians \cite{HMT71}.
-      It is {\tt ROB001-1} in the TPTP, and still has a rating of 1.00 because
-      it has not been solved by a non-specialist ATP system.
-\item The first inner five-segment theorem of Tarski's geometry \cite{SST83} was first
-      automatically proved by E \cite{Sch13-LPAR} in 2019, after being posed by Quaife in
-      1989 \cite{Qua89}.
-      It is problem {\tt GEO033-2} in the TPTP.
-\item Larry Wos' challenge to find a ``circle of pure proofs'' that shows the equivalence
-      of the four Moufang identities \cite{Wos19} was met by careful application \cite{Ver22} of
-      Otter \cite{McC03-Otter} in 2021.
-      While those specific problems are not in the TPTP, many related problems are in the
-      ring theory ({\tt RNG}) domain of the TPTP.
-\end{itemize}
+Table~\ref{Proofs} provides data about ATP systems' attempts to prove the theorems in each domain.
+The ``Thm'' and ``Rtg'' columns duplicate the same columns in Table~\ref{Domains}, giving the
+number of problem versions that encode theorems, and the number of those that have been proved
+by at least one ATP system.
+Varying numbers of systems have tried each problem, depending on when the problem was added to
+the TPTP problem library, and the SPC of the problem -- most systems are limited to certain types
+of problems.
+Observations from that table include:
+\begin{packed_itemize}
+\item OBSERVE
+\end{packed_itemize}
+
+\begin{table}[tb]
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l|rr|rrrrr}
+Domain              & Thm  & Rtg  &  Sys A & Sys S & Sys P & Size & Dp \\
+\hline
+Set theory          & 3223 & 0.49 & 250206 & 60348 & 45157 &   66 &     6 \\
+Graph theory        &  108 & 0.42 &   7908 &   717 &   577 &   86 &    11 \\
+Relation algebra    &  218 & 0.49 &  17178 &  3004 &  2601 &  100 &    19 \\
+MV algebras         &   15 & 0.94 &   1065 &    24 &    24 &   71 &    13 \\
+Boolean algebra     &   79 & 0.16 &   6496 &  2544 &  2035 &   60 &    10 \\
+Robbins algebra     &   34 & 0.54 &   2777 &   585 &   484 &   21 &     6 \\
+Left distributive   &   23 & 0.73 &   1889 &   258 &   201 &   25 &     5 \\
+Lattices            &  628 & 0.69 &  49943 &  7712 &  6156 &  138 &    10 \\
+Quantales           &   20 & 0.72 &   1520 &    74 &    51 &   97 &     7 \\
+Kleene algebra      &  238 & 0.53 &  18292 &  5335 &  4280 &   56 &    10 \\
+Groups              & 1045 & 0.33 &  84547 & 27380 & 21843 &   73 &    11 \\
+Rings               &  226 & 0.44 &  17864 &  5567 &  4397 &   86 &     8 \\
+Fields              &  187 & 0.34 &  15349 &  4473 &  3172 &   34 &     5 \\
+Linear algebra      &   15 & -    &   1065 &     0 &     0 &    - &     - \\
+Homological algebra &    6 & 0.52 &    468 &   140 &   105 &  160 &    10 \\
+Real algebra        &   70 & -    &   4970 &     0 &     0 &    - &     - \\
+General Algebra     &  487 & 0.38 &  38121 & 10153 &  7600 &  359 &    12 \\
+Arithmetic          &  668 & 0.11 &  47428 &  7271 &  6311 &   14 &     3 \\
+Number Theory       & 1314 & 0.39 &  99960 & 22145 & 17248 &  120 &     7 \\
+Topology            &  112 & 0.76 &   8952 &  1212 &  1008 &  133 &     9 \\
+Analysis            &  198 & 0.42 &  15092 &  2361 &  1780 &   72 &     6 \\
+Geometry            &  853 & 0.37 &  65674 & 23044 & 18085 &   58 &     7 \\
+Category Theory     &  103 & 0.44 &   8250 &  2370 &  1763 &   45 &     5 \\
+\hline
+Total               & 7656 & 0.40 & 764996 &186717 &144878 &   89 &     8 \\
+\end{tabular}
+\end{center}
+\caption{TPTP mathematical domain proofs}
+\label{Proofs}
+\end{table}
 
 %--------------------------------------------------------------------------------------------------
 \section{Tools for Mathematicians}
@@ -660,9 +885,8 @@ parallel~\cite{SS99-FLAIRS}.
 The core SystemOnTPTP service is supported by (i)~the SystemB4TPTP service that provides tools to
 prepare problems for submission to ATP systems,\footnote{%
 Available at \href{https://tptp.org/cgi-bin/SystemB4TPTP}{{\tt tptp.org/cgi-bin/SystemB4TPTP}}}
-e.g., axiom selection~\cite{HV11}, type 
-checking~\cite{KSR16}, a scripting language~\cite{Sut14}, and (ii)~the SystemOnTSTP service that 
-provides tools for analysing solutions,\footnote{%
+e.g., axiom selection~\cite{HV11}, type checking~\cite{KSR16}, a scripting language~\cite{Sut14}, 
+and (ii)~the SystemOnTSTP service that provides tools for analysing solutions,\footnote{%
 Available at \href{https://tptp.org/cgi-bin/SystemOnTSTP}{{\tt tptp.org/cgi-bin/SystemOnTSTP}}} 
 e.g., interactive viewing of derivations~\cite{TPS07}, proof checking~\cite{Sut06}, identification 
 of interesting lemmas in a proof~\cite{PGS06}.
@@ -690,6 +914,101 @@ member of the group {\tt h} (see Figure~\ref{ExampleFOF}).
 \caption{IDV views of a proof for {\tt GRP194+1}}
 \label{IDV}
 \end{figure}
+
+%--------------------------------------------------------------------------------------------------
+\section{ATP Contributions to Mathematics}
+\label{Contributions}
+
+\paragraph{Cross-verification of Mizar:}
+A large library of formally verified mathematics.
+Published in the Journal of Formalized Mathematics.
+Based on first-order classical logic and Tarski-Grothendieck set theory.
+New theorems are build on previous theorems.
+Contains articles that contain theorems that contain natural deduction steps that 
+contain simple justifications.
+The Mizar tool is a proof checker for MML theorems
+Cross-verification Approach:
+Convert Mizar theorems to first-order problems.
+Prove the first-order problems.
+Convert Mizar proofs to first-order derivations.
+View and verify the first-order derivations.
+
+\paragraph{Development of Fundamental Mathematical Theories:}
+Van-Neuman-Bernays-Gödel set theory\cite{Qua92-JAR},
+Peano arithmetic,
+Tarski's geometry,
+Number theory~\cite{Qua92-Book}.
+Encoded in first-order logic.
+Challenge problems solved:
+Composition of homomorphisms is a homomorphism [Qua92],
+Unique factorization theorem,
+Euler's generalization of Fermat's theorem,
+Löb's theorem.
+Proofs using Otter.
+First proof: 
+The first inner five-segment theorem of Tarski's geometry \cite{SST83} was first
+automatically proved by E \cite{Sch13-LPAR} in 2019, after being posed by Quaife in
+1989 \cite{Qua89}.
+
+\paragraph{John Slaney's Quasigroups:}
+About Quasigroups: A cancellative monoid, i.e., the operator forms a Latin Square, 
+i.e., each row and column is a permutation of the elements.
+Related to design theory
+Many hard combinatorial problems
+Using ATP
+Finite model finders: DDPP, FINDER, MGTP.
+Questions asked and answered, e.g.,
+is there a Schröder quasigroup order 12 - Yes!
+Questions asked and unanswered, e.g.,
+is there a (3,2,1)-COILS(12)? - Too hard :-(
+First proofs: Model finding ATP systems were used to solve previously open problems concerning the
+existence of quasigroups satisfying certain additional conditions \cite{SFS95}.
+Many examples are in the {\tt GRP} domain of the TPTP.
+
+\paragraph{Results from the AIM project:}
+The Aim of AIM
+If Q is a loop with commuting inner mappings ...
+Is Q modulo its center a group?
+Is Q modulo its nucleus an abelian group?
+True for several varieties of loops
+I'm just a logician who trusts mathematicians
+Using ATP
+Done using Prover9
+Requires sophisticated ATP, e.g., proof sketches
+Proofs are very long (viewed with IDV)
+Often no higher level human proofs available
+Two Mathematicians and a Computer Scientist Walk into a Bar
+Michael Kinyon
+Petr VojtÄ›chovskÃ½
+Robert Veroff
+
+\paragraph{A Circle of Pure Proofs:}
+Larry Wos' challenge to find a ``circle of pure proofs'' that shows the equivalence
+of the four Moufang identities \cite{Wos19} was met by careful application \cite{Ver22} of
+Otter \cite{McC03-Otter} in 2021.
+While those specific problems are not in the TPTP, many related problems are in the
+ring theory ({\tt RNG}) domain of the TPTP.
+
+\paragraph{The solution of the Robbins problem:}
+The Robbins problem was posed in personal communications between Edward Huntington,
+Herbert Robbins, and Alfred Tarski.\footnote{%
+The background is given in
+\href{https://en.wikipedia.org/wiki/Robbins_algebra}{en.wikipedia.org/wiki/Robbins\_algebra}.}
+Solved by the specialist ATP system EQP \cite{McC97}
+in 1996 was a noteworthy success, as the problem had defied the efforts of eminent
+mathematicians \cite{HMT71}.
+It is {\tt ROB001-1} in the TPTP, and still has a rating of 1.00 because
+it has not been solved by a non-specialist ATP system.
+It is problem {\tt GEO033-2} in the TPTP.
+The Problem
+Is every Robbins algebra Boolean? [Win90]
+Posed by Herbert Robbins and Edward Huntington and
+Basically, can Robbins' axiom replace Huntington's axiom
+Unsolved despite efforts of Alfred Tarski
+The Solution
+Every Robbins algebra is Booean!
+Solved by Bill McCune using EQP in 1996
+Builds on work by Steve Winker
 
 %--------------------------------------------------------------------------------------------------
 \section{Conclusion}
