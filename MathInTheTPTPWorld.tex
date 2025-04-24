@@ -60,10 +60,10 @@
 The TPTP World is a well established infrastructure that supports research, development, and 
 deployment of Automated Theorem Proving (ATP) systems.
 A large portion of the TPTP is concerned with various mathematical domains.
-This paper documents the mathematical domains of TPTP v9.0.0, and provides some insight into 
-the performance of state-of-the-art ATP systems on the problems in these domains.
-For those new to the field this information provides an established starting point for research.
-For those already involved, this paper tells what has been achieved so far.
+This paper describes the data sets and services in the TPTP World that support automated reasoning
+in mathematics.
+For mathematicians new to the field this provides an established starting point for research.
+For those already involved, this provides a summary and reminder of what is available.
 \end{abstract}
 %--------------------------------------------------------------------------------------------------
 \section{Introduction}
@@ -107,25 +107,12 @@ deployment of ATP~\cite{Sut10,Sut17}.
 A large portion of the TPTP World is concerned with various mathematical domains.
 This paper describes the data sets and services in the TPTP World that support automated reasoning
 in mathematics.
-Section~\ref{TPTPWorld} provides the necessary background about the TPTP World.
-Section~\ref{MathProblems} describes the breadth and depth of mathematical problems in the TPTP
-World.
-Section~\ref{MathSolutions} covers the solutions to mathematical problems in the TPTP World,
+Section~\ref{Languages} describes the TPTP language used for writing problems and solutions.
+Section~\ref{TPTP} describes the mathematical problems in the TPTP World, including the standard 
+axiomatizations that can be used in problems.
+Section~\ref{TSTP} describes the solutions to the mathematical problems in the TPTP World.
 including some details of outstanding results in mathematics achieved with ATP.
 Section~\ref{Conclusion} concludes.
-
-This section describes the parts of the TPTP World that are referred to in the subsequent sections 
-that describe the mathematics in the TPTP World.
-Salient components of the TPTP World are
-the TPTP language that is used to write mathematical problems and solutions as logic problems and 
-solutions (Section~\ref{Languages}),
-the TPTP problem library and TSTP solution library that contain (amoung others) mathematical
-problems and solutions (Sections~\ref{TPTP} and~\ref{TSTP}),
-the problem and ATP systems ratings that indicate how hard (the mathematical) problems are and 
-how strong the ATP systems are (Section~\ref{Ratings}),
-and SystemOnTPTP for executing ATP systems and tools on the mathematical problems and solutions
-(Section~\ref{SystemOnTPTP}).
-The web page \href{http://www.tptp.org}{{\tt www.tptp.org}} provides access to all components.
 
 %--------------------------------------------------------------------------------------------------
 \section{The TPTP Language}
@@ -329,9 +316,9 @@ tff(about_empty_sets,conjecture,
 
 Table~\ref{Domains} lists the mathematical domains in the TPTP problem library v9.0.0.
 The data columns provide the number of abstract problems, the number of problem versions, the
-number of problems with equality, the number of problems whose conjctures are known to be
+number of problems with equality, the number of problems whose conjectures are known to be
 theorems, the number of those theorems that have been proved by some ATP system, and the average 
-difficulty rating (0.00 means easy, 1.00 means unsolved -- see Secion~\ref{Characteristics}) over 
+difficulty rating (0.00 means easy, 1.00 means unsolved -- see Section~\ref{Characteristics}) over 
 all the problems.
 Observations from that table include:
 \begin{packed_itemize}
@@ -425,7 +412,7 @@ Some commonly used ontology values are listed in Figure~\ref{SZSTable}.
 
 The TPTP problem library is divided into Specialist Problem Classes (SPCs) of problems with 
 recognizable logical, language, and syntactic characteristics, which make the problems in each 
-SPC homogeneous wrt ATP systems.
+SPC homogeneous with respect to ATP systems.
 The characteristics used to define the SPC of a problem are the TPTP language variant, the SZS
 status, the language order, use of equality, use of arithmetic.
 The header shown in Figure~\ref{ExampleHeader} shows that {\tt GRP194+1} is in the 
@@ -539,17 +526,19 @@ cnf(modular,axiom,
 
 Table~\ref{AxiomSets} lists the mathematical axiom sets in the TPTP problem library v9.0.0.
 The data columns provide the number of base axiom sets, the number of augmenting sets, and
-the number of problems that include the domains' axiom sets.
+the number of problems that include the base axiom sets.
 Observations from that table include:
 \begin{packed_itemize}
 \item Each base axiom set is used 64 times on average.
 \item The set theory axiom sets are used the most, with each base axiom set being used 105
       times on average.
-\item ZZZZZ
 \end{packed_itemize}
 
-Note {\tt SET007} is omiited, with its 930 augmenting sets. ZZZZZZ
-Sepcial case for Mizar encoding.
+In addition to the axioms sets listed in Table~\ref{AxiomSets}, there is a set theory base axiom
+set with 930 augmenting sets, exported from the Mizar Mathematical Library (MML)~\cite{Urb06}.
+These axiom sets are used in 1844 problems, across the set theory ({\tt SET}), lattice theory 
+({\tt LAT}), group theory ({\tt GRP}), general algebra ({\tt ALG}), number theory ({\tt NUM}), 
+topology ({\tt TOP}), and category theory ({\tt CAT}) domains.
 
 \begin{table}[tb]
 \begin{center}
@@ -598,7 +587,7 @@ all the problems in the TPTP problem library.
 
 TSTP solution files have a header section and annotated formulae.
 The header section has four parts, as shown in Figure~\ref{ExampleDerivationHeader}.
-the first part identifies the ATP system, the problem, and the system's runtime parameters,
+The first part identifies the ATP system, the problem, and the system's runtime parameters,
 the second part provides information about the hardware, operating system, and resource limits,
 the third part provides the SZS result and output values (see Section~\ref{Characteristics}), 
 and syntactic characteristics of the solution; the last part contains comments.
@@ -777,8 +766,8 @@ Total               & 7656 & 0.40 & 764996 &186717 &144878 &   89 &     8 \\
 \section{Tools for Mathematicians}
 \label{Tools}
 
-The TPTP World understand that mathematicians are primarily concerned with mathematics, and would
-use ATP as a convenient tool to support theor research.
+The TPTP World understands that mathematicians are concerned primarily with mathematics, and would
+use ATP as a convenient tool to support their research.
 With that in mind the TPTP World provide a suite of online services to make it easy to use ATP
 systems and related tools.
 While many users enjoy interactive use of the services in a web browser, it is also easy to use 
@@ -804,16 +793,16 @@ of interesting lemmas in a proof~\cite{PGS06}.
 The Interactive Derivation Viewer (IDV) in SystemOnTSTP is of particular interest to mathematicians.
 Figure~\ref{IDV} shows two views of the proof for {\tt GRP194+1} listed in 
 Figure~\ref{ExampleDerivationFormulae}.
-The lefthand side shows all the steps of the derivation.
+The left hand side shows all the steps of the derivation.
 The ``house'' in the top row is the conjecture, and the inverted triangles in the top row are the
 axioms.
 The inverted house is the negated conjecture, the ovals are steps in the proof, and the box at the
 bottom is the {\tt \$false} node that completes the proof by refutation.
-The lefthand panel shows the logical formulae when the mouse selects a node.
+The left hand panel shows the logical formulae when the mouse selects a node.
 Many mathematical proofs have very many nodes, too many for easy consumption in the proof viewer.
 IDV can help with its ability to measure the interestingness of each inferred formula, scale the
 nodes according to their interestingness, and hide less interesting nodes.
-This is shown in the righthand of Figure~\ref{IDV}.
+This is shown in the right hand of Figure~\ref{IDV}.
 For example, the largest node is {\tt c\_0\_29} which says that {\tt phi(f\_left\_zero)} is a 
 member of the group {\tt h} (see Figure~\ref{ExampleFOF}).
 
@@ -829,16 +818,19 @@ member of the group {\tt h} (see Figure~\ref{ExampleFOF}).
 \section{ATP Contributions to Mathematics}
 \label{Contributions}
 
-ZZZZZZZZZZZZZZ
+Over the years ATP has made some significant contributions to mathematics, including verification
+of mathematical proofs, support for mathematical research, and finding first proofs of mathematical
+theorems.
+Some outstanding examples are described in this section.
 
-\paragraph{A Circle of Pure Proofs:}
+\paragraph{A circle of pure proofs:}
 Larry Wos' challenge to find a ``circle of pure proofs'' that shows the equivalence
 of the four Moufang identities \cite{Wos19} was met by careful application \cite{Ver22} of
 Otter \cite{McC03-Otter} in 2021.
 While those specific problems are not in the TPTP, many related problems are in the
 ring theory ({\tt RNG}) domain of the TPTP.
 
-\paragraph{Development of Fundamental Mathematical Theories:}
+\paragraph{Development of fundamental mathematical theories:}
 Van-Neuman-Bernays-Gödel set theory\cite{Qua92-JAR},
 Peano arithmetic,
 Tarski's geometry,
@@ -896,10 +888,6 @@ Done using Prover9
 Requires sophisticated ATP, e.g., proof sketches
 Proofs are very long (viewed with IDV)
 Often no higher level human proofs available
-Two Mathematicians and a Computer Scientist Walk into a Bar
-Michael Kinyon
-Petr VojtÄ›chovskÃ½
-Robert Veroff
 
 \paragraph{The solution of the Robbins problem:}
 The Robbins problem was posed in personal communications between Edward Huntington,
