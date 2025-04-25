@@ -59,9 +59,9 @@
 \begin{abstract}
 The TPTP World is a well established infrastructure that supports research, development, and 
 deployment of Automated Theorem Proving (ATP) systems.
-A large portion of the TPTP is concerned with various mathematical domains.
-This paper describes the data sets and services in the TPTP World that support research with
-automated reasoning in mathematics.
+A large portion of the TPTP World is concerned with various mathematical domains.
+This paper describes the data sets and services in the TPTP World that support automated reasoning 
+in mathematics.
 For mathematicians new to the field this provides an established starting point for research.
 For those already involved, this provides a summary and reminder of what is available.
 \end{abstract}
@@ -79,8 +79,8 @@ The left side of Figure~\ref{UseOfAR} shows how automated reasoning systems are 
 (i)~a world problem written in an application domain language is translated to the language
 of the automated reasoning system; (ii)~the resultant reasoning problem is given to an automated 
 reasoning system; (iii)~the automated reasoning system produces a solution (which can be in a
-language different from that used for the problem); (iv)~the solution is translated to the 
-application domain language.
+language different from that used for the problem); (iv)~the solution is reverse engineered to a
+form that can used in the domain.
 
 For automated reasoning in mathematics, the mathematical problems are very often translated to 
 a formal logic language, and the automated reasoning systems used to solve the problems are 
@@ -88,11 +88,11 @@ Automated Theorem Proving (ATP) systems~\cite{Bun83,RV01-HAR}.
 The right side of Figure~\ref{UseOfAR} shows the specialization of general automated reasoning
 to mathematical reasoning in logic:
 (i)~a mathematical problem written in a mathematical language is translated to an appropriate 
-logic language, as a set of axioms that model the mathematical domain and typically accompanied 
-by a conjecture that formalizes a theorem to be proved; (ii)~the resultant logic problem is given 
+logic language, typically as a set of axioms for the mathematical domain accompanied by a 
+conjecture that formalizes a theorem to be proved; (ii)~the resultant logic problem is given 
 to an ATP system; (iii)~the ATP system produces a solution in a logic language (which can be 
-a different language from that used to write the problem); (iv)~the logic solution is translated 
-to the mathematical language.
+a different language from that used to write the problem); (iv)~the logic solution is reverse 
+engineered to a mathematical form.
 
 \begin{figure}[htb]
 \centering
@@ -105,27 +105,29 @@ to the mathematical language.
 The TPTP World is a well established infrastructure that supports research, development, and 
 deployment of ATP~\cite{Sut10,Sut17}.
 A large portion of the TPTP World is concerned with various mathematical domains.
-This paper describes the data sets and services in the TPTP World that support research with
-automated reasoning in mathematics.
+This paper describes the data sets and services in the TPTP World that support automated reasoning 
+in mathematics.
 Section~\ref{Languages} describes the TPTP language used for writing problems and solutions.
-Section~\ref{TPTP} describes the mathematical problems in the TPTP World, including the standard 
+Section~\ref{TPTP} describes the mathematical problems in the TPTP World, including standard 
 axiomatizations that can be used in problems.
 Section~\ref{TSTP} describes the solutions to the mathematical problems in the TPTP World.
-including some details of outstanding results in mathematics achieved with ATP.
+Section~\ref{Tools} introduces some of the services and tools that mathematicians can use to
+support their use of ATP.
+Section~\ref{Contributions} highlights some contributions to mathematics achieved using ATP.
 Section~\ref{Conclusion} concludes.
 
 %--------------------------------------------------------------------------------------------------
 \section{The TPTP Language}
 \label{Languages}
 
-The TPTP language~\cite{Sut23-IGPL} is one of the keys to the success of the TPTP World.
-The TPTP language is used for writing both problems and solutions,
-which enables convenient communication between ATP systems and tools.
+The TPTP language is one of the keys to the success of the TPTP World~\cite{Sut23-IGPL}.
+The TPTP language is used for writing both problems and solutions, which enables convenient 
+communication between ATP systems and tools.
 The TPTP language supports propositional, first-order, typed first-order, higher-order, and
 non-classical logics, each of which is useful for different types of mathematics.
 
 Problems and solutions are built from {\em annotated formulae} of the form: \\
-\hspace*{0.5cm}{\em language}{\tt (}{\em name}{\tt ,}
+\hspace*{1.0cm}{\em language}{\tt (}{\em name}{\tt ,}
 {\em role}{\tt ,}
 {\em formula}{\tt ,}
 {\em source}{\tt ,}
@@ -156,28 +158,26 @@ problems, and Figure~\ref{ExampleDerivationFormulae} shows examples of formulae 
 \section{Mathematical Problems in the TPTP World}
 \label{TPTP}
 
-The TPTP problem library is a comprehensive library of test problems for ATP systems~\cite{Sut09}.
-It supports necessary for meaningful ATP system evaluations, meaningful system comparisons, 
-repeatability of testing, and the production of statistically significant results. 
-Seven main fields are defined: logic, mathematics, computer science, science \& engineering, 
-social sciences, arts \& humanities, and other. 
+The TPTP problem library (a data set in the TPTP World) is a comprehensive library of test 
+problems for ATP systems~\cite{Sut09}.
+It supports meaningful ATP system evaluations, meaningful system comparisons, repeatability of 
+testing, and the production of statistically significant results. 
+Seven main fields are defined: logic, {\bf {\em mathematics}}, computer science, science~\& 
+engineering, social sciences, arts \& humanities, and other. 
 Each field is subdivided into domains based mainly on the Dewey Decimal Classification and the 
 Mathematics Subject Classification, and each domain identified by a three-letter mnemonic.
-For a given {\em abstract} (mathematical) problem, the TPTP problem library can have multiple 
-concrete {\em versions}, which are the problems that ATP systems solve. 
+For a given abstract (mathematical) problem, the TPTP problem library contains one of more
+concrete instances, which are the problems that ATP systems solve. 
 
-Each TPTP problem version problem is stored in a separate physical file, using the naming scheme 
-{\em DDDNNNFV}.
+Each TPTP problem is stored in a separate physical file, using the naming scheme {\em DDDNNNFV}.
 {\em DDD} is the domain mnemonic, {\em NNN} is the index of the abstract problem in the domain,
 {\em F} identifies the TPTP language, and {\em V} is the version index in the abstract problem.
 Each TPTP problem file has three parts: a header, optional includes, and annotated formulae.
 The header section contains information for users, as shown in Figure~\ref{ExampleHeader}.
-The header fields are self-explanatory, but of particular interest are the {\tt Status}, SPC,
-and Rating fields, which are explained in Section~\ref{Characteristics}.
+The header fields are self-explanatory, but the {\tt Status}, {\tt SPC}, and {\tt Rating} fields
+are of particular interest, and are explained in Section~\ref{Characteristics}.
 The include section of a problem file is optional, and if used contains {\tt include} directives 
-for axiom files, as in Figure~\ref{ExampleFOF}.
-Inclusion avoids the need for duplication of the formulae in commonly used axiomatizations.
-The TPTP World has many axiomatizations of mathematical theories.
+for axiom files (see Section~\ref{AxiomSets}).
 Figure~\ref{ExampleFOF} shows the include section and annotated formulae of the group theory 
 problem {\tt GRP194+1}, written in first-order logic, and Figure~\ref{ExampleTF0} shows a cutdown 
 version of the set theory problem {\tt SEV421\_1}, written in typed first-order logic.\footnote{%
@@ -318,14 +318,13 @@ Table~\ref{Domains} lists the mathematical domains in the TPTP problem library v
 The data columns provide the number of abstract problems, the number of problem versions, the
 number of problems with equality, the number of problems whose conjectures are known to be
 theorems, the number of those theorems that have been proved by some ATP system, and the average 
-difficulty rating (0.00 means easy, 1.00 means unsolved -- see Section~\ref{Characteristics}) over 
-all the problems.
+difficulty rating (see Section~\ref{Characteristics}) over all the problems.
 Observations from that table include:
 \begin{packed_itemize}
 \item Equality is used a lot, as one might expect in mathematics.
-\item Most of the problems have been solved by at least one of the available ATP systems.
-\item The problems are difficult on average, which in turn means that most of the problems have
-      not been solved by most of the available ATP systems.
+\item Most of the theorem have been proved by at least one ATP system.
+\item The problems are of medium difficulty on average, which in turn means that most of the 
+      problems have been solved by several ATP systems.
 \end{packed_itemize}
 
 % SET SEU SEV GRA REL MVA BOO ROB LDA LAT QUA KLE GRP RNG FLD LIN HAL RAL ALG ARI NUM NUN TOP ANA GEO CAT
@@ -371,18 +370,15 @@ Total               &           & 7656 & 9870 & 8548 & 9870 & 8588 & 0.40 \\
 \subsection{Status, SPC, and Rating}
 \label{Characteristics}
 
-The ``Status'' of a TPTP problem, as in Figure~\ref{ExampleHeader}, is given as an SZS ontology 
-value~\cite{Sut08-KEAPPA}
-The ontologies~\cite{SZS03}) provide values to specify the logical status of problems and
-solutions, and to describe logical data.
-The Success ontology provides values for the logical status of a conjecture with respect to a 
-set of axioms, e.g., a TPTP problem whose conjecture is a logical consequence of the axioms 
-is tagged as a {\tt Theorem}.
-The NoSuccess and DataForm ontologies are used in the output from ATP systems, as described in
-Section~\ref{TSTP}.
+The {\tt Status} of a TPTP problem, as shown for {\tt GRP194+1} in Figure~\ref{ExampleHeader}, is 
+an SZS ontology value~\cite{Sut08-KEAPPA}.
+The SZS ontologies provide values to specify the logical status of problems and solutions, and 
+to describe logical data.
+The Success ontology provides values for the logical status of a problem, e.g., a TPTP problem 
+whose conjecture is a logical consequence of the axioms is tagged as a {\tt Theorem}.
 The NoSuccess ontology provides reasons why an ATP system/tool has failed, e.g., an ATP system 
 might report {\tt Timeout}, and the DataForm ontology provides values for describing logical 
-data.
+data, e.g., a {\tt Proof}.
 Some commonly used ontology values are listed in Figure~\ref{SZSTable}.
 
 % \begin{figure}[htb]
@@ -415,15 +411,11 @@ recognizable logical, language, and syntactic characteristics, which make the pr
 SPC homogeneous with respect to ATP systems.
 The characteristics used to define the SPC of a problem are the TPTP language variant, the SZS
 status, the language order, use of equality, use of arithmetic.
-The header shown in Figure~\ref{ExampleHeader} shows that {\tt GRP194+1} is in the 
-SPC {\tt FOF\_THM\_RFO\_SEQ}, i.e., it's a first-order ({\tt FOF}) theorem ({\tt THM}) that
-is really first-order ({\tt RFO} - cannot be reduced to propositional logic), and contains some
-equality ({\tt SEQ}).
+The SPC of {\tt GRP194+1}, as shown in Figure~\ref{ExampleHeader}, is {\tt FOF\_THM\_RFO\_SEQ}, 
+i.e., it's a first-order ({\tt FOF}) theorem ({\tt THM}) that is really first-order ({\tt RFO} -- 
+cannot be reduced to propositional logic), and contains some equality ({\tt SEQ}).
 For another example, the SPC {\tt TF0\_THM\_NEQ\_ARI} contains typed monomorphic first-order 
 theorems that have no equality but include arithmetic.
-ATP systems are rated in each SPC based on their performance data in the TSTP solution library 
-(see Section~\ref{TSTP}), which provides a basis for selecting an ATP system to attempt a problem,
-by determining the problem's SPC.
 
 Each TPTP problem has a difficulty rating that provides a well-defined measure of how difficult 
 the problem is for current ATP systems~\cite{SS01}.
@@ -431,11 +423,14 @@ The ratings range from 0.00 (easy -- solvable by all ATP systems), through 0.01-
 solvable by some ATP systems), to 1.00 (hard -- solable by no ATP systems).
 The ratings are based on performance data in the TSTP solution library (see Section~\ref{TSTP}), 
 done separately for each SPC.
-The header shown in Figure~\ref{ExampleHeader} shows that {\tt GRP194+1} has a rating of 0.18 in
-TPTP version v9.0.0, and had higher ratings in earlier TPTP releases.
-Changes in difficulty ratings provide a way to assess progress in the field -- as problems that 
-are unchanged are not actually getting easier, decreases in their difficulty ratings are evidence 
-of progress in ATP systems.
+The Rating of {\tt GRP194+1}, as shown in Figure~\ref{ExampleHeader}, is 0.18 in TPTP release 
+v9.0.0, and was higher in earlier TPTP releases.
+Changes in difficulty ratings provide a way to assess progress in the field -- as problems remain 
+unchanged, i.e., they are not actually getting easier, decreases in their difficulty ratings are 
+evidence of progress in ATP systems.
+The problem rating process also produces ratings for ATP systems, for each SPC. 
+This provides a basis for selecting an ATP system to attempt a problem, by determining the 
+problem's SPC and considering the system ratings in the SPC.
 
 %--------------------------------------------------------------------------------------------------
 \subsection{Axiom Sets}
@@ -443,9 +438,10 @@ of progress in ATP systems.
 
 Many problems in the TPTP are based on a common set of axioms.
 To ensure consistency and avoid duplication in problems, commonly used axiomatizations are
-factored out into axiom files that can be included in problem files, as done in
+factored out into axiom set files that can be included in problem files, as done in
 Figure~\ref{ExampleFOF}.
-Axiomatizations typically have a base axiom set indexed 0, which can be augmented by additional
+The TPTP World has many axiomatizations of mathematical theories.
+Axiomatizations have a base axiom set indexed 0, which can be augmented by additional
 axioms sets indexed 1 onwards.
 Each TPTP axiom set is stored in a separate physical file, using the naming scheme
 {\em DDDNNNFV}.
@@ -454,7 +450,7 @@ Each TPTP axiom set is stored in a separate physical file, using the naming sche
 Each TPTP axiom file has two parts: a header and annotated formulae.
 The header section contains information similar to that for problems, as shown in 
 Figure~\ref{ExampleHeader}.
-Figure~\ref{ExampleAxioms0} shows the annotated formulae of the lattice theory axiom set 
+Figure~\ref{ExampleAxioms0} shows the annotated formulae of the lattice theory base axiom set 
 {\tt LAT001-0}, written in the clause normal form of first-order logic, and 
 Figure~\ref{ExampleAxioms1} shows the formulae of the augmenting modularity axiom set.\footnote{%
 TPTP axiom sets can be browsed at \href{https://tptp.org/TPTP/}{{\tt tptp.org/TPTP/}}}
@@ -524,8 +520,9 @@ cnf(modular,axiom,
 \label{ExampleAxioms1}
 \end{figure}
 
-Table~\ref{AxiomSets} lists the mathematical axiom sets in the TPTP problem library v9.0.0.
-The data columns provide the number of base axiom sets, the number of augmenting sets, and
+Table~\ref{AxiomSets} provides some data about the mathematical axiom sets in the TPTP problem 
+library v9.0.0.
+The columns provide the number of base axiom sets, the number of augmenting sets, and
 the number of problems that include the base axiom sets.
 Observations from that table include:
 \begin{packed_itemize}
@@ -534,8 +531,9 @@ Observations from that table include:
       times on average.
 \end{packed_itemize}
 
-In addition to the axioms sets listed in Table~\ref{AxiomSets}, there is a set theory base axiom
-set with 930 augmenting sets, exported from the Mizar Mathematical Library (MML)~\cite{Urb06}.
+In addition to the axioms sets considered for Table~\ref{AxiomSets}, there is a extra set theory 
+base axiom set with 930 augmenting sets, exported from the Mizar Mathematical 
+Library (MML)~\cite{Urb06}.
 These axiom sets are used in 1844 problems, across the set theory ({\tt SET}), lattice theory 
 ({\tt LAT}), group theory ({\tt GRP}), general algebra ({\tt ALG}), number theory ({\tt NUM}), 
 topology ({\tt TOP}), and category theory ({\tt CAT}) domains.
@@ -582,16 +580,29 @@ Total               &   64 &   33 & 4110 \\
 \label{TSTP}
 
 The complement to the TPTP problem library is the TSTP solution library~\cite{Sut07-CSR,Sut10}.
-The TSTP is built by running all the ATP systems that are available in the TPTP World on
-all the problems in the TPTP problem library.
+The TSTP is built by running all the ATP systems that are available in the TPTP World (see 
+Section~\ref{Tools}) on all the problems in the TPTP problem library.
 
 TSTP solution files have a header section and annotated formulae.
-The header section has four parts, as shown in Figure~\ref{ExampleDerivationHeader}.
-The first part identifies the ATP system, the problem, and the system's runtime parameters,
-the second part provides information about the hardware, operating system, and resource limits,
-the third part provides the SZS result and output values (see Section~\ref{Characteristics}), 
-and syntactic characteristics of the solution; the last part contains comments.
+Figure~\ref{ExampleDerivationHeader} shows the header section for the proof of {\tt GRP194+1} by
+the ATP system E~3.2.5 ~\cite{SCV19}.
+The header fields are self-explanatory, but the {\tt Result}, {\tt Output}, and {\tt SZS Type} 
+fields are of particular interest, and are based on the SZS ontologies 
+(see Section~\ref{Characteristics}).
 The solution follows in annotated formulae.
+Figure~\ref{ExampleDerivationFormulae} shows the derivation formulae (slightly modified) of the
+proof of {\tt GRP194+1} (the problem shown in Figure~\ref{ExampleFOF}) by E~3.2.5.\footnote{%
+TSTP solutions can be browsed at \href{https://tptp.org/TSTP/}{{\tt tptp.org/TSTP/}}}
+
+The annotated formulae in a proof contain the source of the formula. 
+The source can be the problem file or an inference.
+For inferences the source information includes the name of the inference rule used, the semantic 
+relationship between the parents and the derived formula as an SZS value, and a list of the 
+parent annotated formulae names.
+For example, the annotated formula {\tt c\_0\_32} in Figure~\ref{ExampleDerivationFormulae} was 
+inferred by the {\tt split\_conjunct} rule applied to the parent formulae {\tt c\_0\_10}, and 
+the {\tt status(thm)} tag indicates that the inferred formula is a logical consequence of the 
+parent formula.
 
 \begin{figure}[htb]
 \centering
@@ -638,18 +649,6 @@ The solution follows in annotated formulae.
 \caption{Header of a proof for {\tt GRP194+1}}
 \label{ExampleDerivationHeader}
 \end{figure}
-
-For derivations, where formulae are derived from parent formulae, e.g., in proofs, refutations, 
-etc., the {\em source} fields of the annotated formulae are used to capture parent-derived 
-formulae relationships in the derivation DAG.
-This includes the source of the formula -- either the problem file or an inference.
-Inference data includes the name of the inference rule used, the semantic relationship between 
-the parents and the derived formula as an SZS value, and a list of the parent annotated formulae 
-names.
-Figure~\ref{ExampleDerivationFormulae} shows an example refutation (slightly modified) from 
-the E ATP system~\cite{SCV19} for the problem in Figure~\ref{ExampleFOF}, and 
-Figure~\ref{ExampleDerivationHeader} shows the corresponding header.\footnote{%
-TSTP solutions can be browsed at \href{https://tptp.org/TSTP/}{{\tt tptp.org/TSTP/}}}
 
 \begin{figure}[h!]
 \centering
@@ -711,17 +710,20 @@ cnf(c_0_33,hypothesis,
 \end{figure}
 
 Table~\ref{Proofs} provides data about ATP systems' attempts to prove the theorems in each domain.
-The ``Thm'' and ``Rtg'' columns duplicate the same columns in Table~\ref{Domains}, giving the
-number of problem versions that encode theorems, and the number of those that have been proved
-by at least one ATP system.
 Varying numbers of systems have tried each problem, depending on when the problem was added to
 the TPTP problem library, and the SPC of the problem -- most systems are limited to certain types
 of problems.
+The ``Thm'' and ``Rtg'' columns duplicate the same columns in Table~\ref{Domains}, giving the
+number of problem versions that encode theorems, and the number of those that have been proved
+by at least one ATP system.
+The ``Sys A'' column gives the total number of ATP systems' attempts to prove theorems, the 
+``Sys S'' gives the number of attempts that were successful, and the ``Sys P'' column gives the 
+number of successes that output an explicit proof.
 Observations from that table include:
 \begin{packed_itemize}
-\item Most ATP systems' attempts (76\%) to prove a theorem are unsuccessful.
-\item Most ATP systems' successes (75\%) output an explicit proof object.
-\item There is low correlation between problem rating and proof size (0.07),
+\item Most ATP systems' attempts to prove a theorem are unsuccessful (76\%).
+\item Most ATP systems' successes output an explicit proof object (75\%).
+\item There is low correlation between problem difficulty rating and proof size (0.07),
       between rating and proof depth (0.22).
 \end{packed_itemize}
 
@@ -767,11 +769,11 @@ Total               & 7656 & 0.40 & 764996 &186717 &144878 &   89 &     8 \\
 \label{Tools}
 
 The TPTP World understands that mathematicians are concerned primarily with mathematics, and would
-use ATP as a convenient tool to support their research.
-With that in mind the TPTP World provide a suite of online services to make it easy to use ATP
+use ATP only as a convenient tool to support their mathematical efforts.
+With that in mind the TPTP World provides a suite of online services that make it easy to use ATP
 systems and related tools.
-While many users enjoy interactive use of the services in a web browser, it is also easy to use 
-the services programmatically.
+% While many users enjoy interactive use of the services in a web browser, it is also easy to use 
+% the services programmatically.
 The core service is SystemOnTPTP~\cite{Sut00-CADE-17}, which provides hardware and interfaces 
 for users to submit their problems to most recent versions of a wide range of ATP 
 systems.\footnote{%
@@ -779,7 +781,7 @@ Available at \href{https://tptp.org/cgi-bin/SystemOnTPTP}{{\tt tptp.org/cgi-bin/
 SystemOnTPTP can provide recommendations for ATP systems that might be most likely to solve
 a problem, based on the SPC of the user's problem and the system ratings for the SPC
 (see Section~\ref{Characteristics}).
-SystemOnTPTP can also run ATP systems (e.g., the recommended systems) in competition
+SystemOnTPTP can also run ATP systems (e.g., recommended systems) in competition
 parallel~\cite{SS99-FLAIRS}.
 The core SystemOnTPTP service is supported by (i)~the SystemB4TPTP service that provides tools to
 prepare problems for submission to ATP systems,\footnote{%
@@ -791,7 +793,7 @@ e.g., interactive viewing of derivations~\cite{TPS07}, proof checking~\cite{Sut0
 of interesting lemmas in a proof~\cite{PGS06}.
 
 The Interactive Derivation Viewer (IDV) in SystemOnTSTP is of particular interest to mathematicians.
-Figure~\ref{IDV} shows two views of the proof for {\tt GRP194+1} listed in 
+Figure~\ref{IDV} shows two views of the proof for {\tt GRP194+1} that is shown in 
 Figure~\ref{ExampleDerivationFormulae}.
 The left hand side shows all the steps of the derivation.
 The ``house'' in the top row is the conjecture, and the inverted triangles in the top row are the
@@ -823,7 +825,7 @@ of mathematical proofs, support for mathematical research, and finding first pro
 theorems.
 Some outstanding examples are described in this section.
 
-\paragraph{A circle of pure proofs:}
+\paragraph{A Circle of Pure Proofs:}
 A Moufang loop is an algebraic structure similar to a group but need not be associative, 
 satisfying four equivalent identities~\cite{Mou35}.
 In 2019 Larry Wos' presented a challenge to find a ``circle of pure proofs'' that shows the 
@@ -834,7 +836,7 @@ This challenge was met in 2021 by careful application~\cite{Ver22} of Otter~\cit
 While the specific problems are not in the TPTP, many related problems are in the ring theory 
 ({\tt RNG}) domain of the TPTP.
 
-\paragraph{Development of fundamental mathematical theories:}
+\paragraph{Development of Fundamental Mathematical Theories:}
 Art Quaife's 1992 book ``Automated Development of Fundamental Mathematical 
 Theories''~\cite{Qua92-Book} presented comprehensive encodings of several mathematical theories 
 in first-order logic:
@@ -844,9 +846,10 @@ Quaife used Otter~\cite{McC03-Otter} to prove many theorems in these domains.
 The book includes some mathematically interesting challenge problems, e.g., the composition of 
 homomorphisms is a homomorphism, the unique factorization theorem, Euler's generalization of 
 Fermat's theorem, L{\"o}b's theorem, and the inner five-segment theorems of Tarski's geometry.
-The first inner five-segment theorem of Tarski's geometry was first automatically proved by 
-E~\cite{Sch13-LPAR} in 2019, after first being posed by Quaife in 1989~\cite{Qua89}.
-Problems from the book are in the set theory ({\tt SET}), general algebra ({\tt ALG}), number 
+The first inner five-segment theorem of Tarski's geometry (TPTP problem {\tt GEO033-2}) was first 
+posed for ATP by Quaife in 1989~\cite{Qua89}, and first automatically proved in 2019 by the E ATP 
+system~\cite{SCV19}.
+Problems from Quaife's book are in the set theory ({\tt SET}), general algebra ({\tt ALG}), number 
 theory ({\tt NUM}), geometry ({\tt GEO}), and category theory ({\tt CAT}) domains of the TPTP 
 problem library.
 
@@ -855,8 +858,8 @@ A quasigroup is a cancellative monoid, i.e., the operator forms a Latin Square, 
 and column is a permutation of the elements~\cite{MMM07}.
 Quasigroups are related to design theory, and their study produces many hard combinatorial 
 problems that can be solved using ATP.
-John Slaney used model finding ATP systems to investigate the existence of quasigroups that
-satisfy certain additional conditions~\cite{SFS95}
+In the early 1990's John Slaney and colleagues used model finding ATP systems to investigate the 
+existence of quasigroups that satisfy certain additional conditions~\cite{SFS95}.
 Some interest questions were asked, e.g., is there a Schr{\"o}der quasigroup order 12 (yes!),
 and, is there a (3,2,1)-COILS(12)? (too hard for ATP).
 Many examples are in the group theory ({\tt GRP}) domain of the TPTP.
@@ -867,15 +870,16 @@ based on first-order logic and Tarski-Grothendieck set theory~\cite{GKN10}.
 New theorems for the MML are build on previous theorems, and are published in the 
 Journal of Formalized Mathematics.
 Each article contain theorems that contain natural deduction steps that contain simple 
-justifications, which have been checked by the Mizar proof checker.
-In order to cross-verify proofs in the MML, a selection of problems and proofs was exported to
+justifications. 
+The proofs are checked by the Mizar proof checker.
+In order to cross-verify proofs in the MML, a selection of problems and proofs were exported to
 the TPTP format~\cite{US09}.
-The proofs were verified using the GDV proof verifier~\ref{Sut06}.
+The proofs were verified using the GDV proof verifier~\cite{Sut06}.
 Many of the exported problems are in the set theory ({\tt SET}), group theory ({\tt GRP}),
 lattice theory ({\tt LAT}), general algebra ({\tt ALG}), number theory ({\tt NUM}), topology 
 ({\tt TOP}), and category theory ({\tt CAT}) domains of the TPTP problem library.
 
-\paragraph{The AIM project:}
+\paragraph{The AIM Project:}
 An Abelian inner mapping is a loop in which the group of inner mappings is an abelian group. 
 These are the subject of study in the AIM project, which uses ATP to answer questions such as:
 ``If {\em Q} is a loop with commuting inner mappings then, is {\em Q} modulo its center a group, 
@@ -887,34 +891,26 @@ Often there are no higher-level human proofs to guide development.
 The proofs can be very long, but interesting steps can be identified using the IDV derivation
 viewer (see Section~\ref{Tools}).
 
-\paragraph{The solution of the Robbins problem:}
+\paragraph{The Robbins Problem:}
 The Robbins problem was posed in personal communications between Edward Huntington,
 Herbert Robbins, and Alfred Tarski.\footnote{%
 The background is given in
-\href{https://en.wikipedia.org/wiki/Robbins_algebra}{en.wikipedia.org/wiki/Robbins\_algebra}.}
-Solved by the specialist ATP system EQP \cite{McC97}
-in 1996 was a noteworthy success, as the problem had defied the efforts of eminent
-mathematicians \cite{HMT71}.
-It is {\tt ROB001-1} in the TPTP, and still has a rating of 1.00 because
-it has not been solved by a non-specialist ATP system.
-It is problem {\tt GEO033-2} in the TPTP.
-The Problem
-Is every Robbins algebra Boolean? [Win90]
-Posed by Herbert Robbins and Edward Huntington and
-Basically, can Robbins' axiom replace Huntington's axiom
-Unsolved despite efforts of Alfred Tarski
-The Solution
-Every Robbins algebra is Booean!
-Solved by Bill McCune using EQP in 1996
-Builds on work by Steve Winker
+\href{https://en.wikipedia.org/wiki/Robbins_algebra}{en.wikipedia.org/wiki/Robbins\_algebra}}.
+The problem asks if every Robbins algebra is Boolean, or equivalently if the Robbins axiom 
+can replace Huntington's axiom in his axiomatization of Boolean algebra?
+The problem remained unsolved despite the efforts of eminent mathematicians~\cite{HMT71}.
+In 1996 the question was answered in the affirmative by Bill McCune, using his specialist
+ATP system EQP~\cite{McC97}, building on work by Steve Winker~\cite{Win90}.
+The Robbins problem is {\tt ROB001-1} in the TPTP problem library, and still has a rating of 
+1.00 because it has not been solved by any non-specialist ATP system.
 
 %--------------------------------------------------------------------------------------------------
 \section{Conclusion}
 \label{Conclusion}
 
-This paper describes the data sets and services in the TPTP World that support research with
-automated reasoning in mathematics.
-ZZZZZZZZZZZZZ
+This paper describes the data sets and services in the TPTP World that support automated reasoning 
+in mathematics.
+To be completed.
 
 The TPTP World would not exist without the early strategic insights of Christian Suttner,
 with his willingness to let me do the organization without interference. 
