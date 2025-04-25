@@ -824,70 +824,68 @@ theorems.
 Some outstanding examples are described in this section.
 
 \paragraph{A circle of pure proofs:}
-Larry Wos' challenge to find a ``circle of pure proofs'' that shows the equivalence
-of the four Moufang identities \cite{Wos19} was met by careful application \cite{Ver22} of
-Otter \cite{McC03-Otter} in 2021.
-While those specific problems are not in the TPTP, many related problems are in the
-ring theory ({\tt RNG}) domain of the TPTP.
+A Moufang loop is an algebraic structure similar to a group but need not be associative, 
+satisfying four equivalent identities~\cite{Mou35}.
+In 2019 Larry Wos' presented a challenge to find a ``circle of pure proofs'' that shows the 
+equivalence of the four Moufang identities~\cite{Wos19}, i.e., proofs of each of the identities
+from the preceding one (with the first being proved from the last) in which each proof uses
+neither of the other two identities.
+This challenge was met in 2021 by careful application~\cite{Ver22} of Otter~\cite{McC03-Otter}.
+While the specific problems are not in the TPTP, many related problems are in the ring theory 
+({\tt RNG}) domain of the TPTP.
 
 \paragraph{Development of fundamental mathematical theories:}
-Van-Neuman-Bernays-Gödel set theory\cite{Qua92-JAR},
-Peano arithmetic,
-Tarski's geometry,
-Number theory~\cite{Qua92-Book}.
-Encoded in first-order logic.
-Challenge problems solved:
-Composition of homomorphisms is a homomorphism [Qua92],
-Unique factorization theorem,
-Euler's generalization of Fermat's theorem,
-Löb's theorem.
-Proofs using Otter.
-First proof: 
-The first inner five-segment theorem of Tarski's geometry \cite{SST83} was first
-automatically proved by E \cite{Sch13-LPAR} in 2019, after being posed by Quaife in
-1989 \cite{Qua89}.
+Art Quaife's 1992 book ``Automated Development of Fundamental Mathematical 
+Theories''~\cite{Qua92-Book} presented comprehensive encodings of several mathematical theories 
+in first-order logic:
+Van-Neuman-Bernays-G{\"o}del set theory~\cite{Qua92-JAR}, Peano arithmetic, Tarski's 
+geometry~\cite{SST83}, and number theory.
+Quaife used Otter~\cite{McC03-Otter} to prove many theorems in these domains.
+The book includes some mathematically interesting challenge problems, e.g., the composition of 
+homomorphisms is a homomorphism, the unique factorization theorem, Euler's generalization of 
+Fermat's theorem, L{\"o}b's theorem, and the inner five-segment theorems of Tarski's geometry.
+The first inner five-segment theorem of Tarski's geometry was first automatically proved by 
+E~\cite{Sch13-LPAR} in 2019, after first being posed by Quaife in 1989~\cite{Qua89}.
+Problems from the book are in the set theory ({\tt SET}), general algebra ({\tt ALG}), number 
+theory ({\tt NUM}), geometry ({\tt GEO}), and category theory ({\tt CAT}) domains of the TPTP 
+problem library.
 
 \paragraph{Quasigroups:}
-About Quasigroups: A cancellative monoid, i.e., the operator forms a Latin Square, 
-i.e., each row and column is a permutation of the elements.
-Related to design theory
-Many hard combinatorial problems
-Using ATP
-Finite model finders: DDPP, FINDER, MGTP.
-Questions asked and answered, e.g.,
-is there a Schröder quasigroup order 12 - Yes!
-Questions asked and unanswered, e.g.,
-is there a (3,2,1)-COILS(12)? - Too hard :-(
-First proofs: Model finding ATP systems were used to solve previously open problems concerning the
-existence of quasigroups satisfying certain additional conditions \cite{SFS95}.
-Many examples are in the {\tt GRP} domain of the TPTP.
+A quasigroup is a cancellative monoid, i.e., the operator forms a Latin Square, i.e., each row 
+and column is a permutation of the elements~\cite{MMM07}.
+Quasigroups are related to design theory, and their study produces many hard combinatorial 
+problems that can be solved using ATP.
+John Slaney used model finding ATP systems to investigate the existence of quasigroups that
+satisfy certain additional conditions~\cite{SFS95}
+Some interest questions were asked, e.g., is there a Schr{\"o}der quasigroup order 12 (yes!),
+and, is there a (3,2,1)-COILS(12)? (too hard for ATP).
+Many examples are in the group theory ({\tt GRP}) domain of the TPTP.
 
 \paragraph{Cross-verification of Mizar:}
-A large library of formally verified mathematics.
-Published in the Journal of Formalized Mathematics.
-Based on first-order classical logic and Tarski-Grothendieck set theory.
-New theorems are build on previous theorems.
-Contains articles that contain theorems that contain natural deduction steps that 
-contain simple justifications.
-The Mizar tool is a proof checker for MML theorems
-Cross-verification Approach:
-Convert Mizar theorems to first-order problems.
-Prove the first-order problems.
-Convert Mizar proofs to first-order derivations.
-View and verify the first-order derivations.
+The Mizar Mathematical Library (MML) is a large library of formally verified mathematics,
+based on first-order logic and Tarski-Grothendieck set theory~\cite{GKN10}.
+New theorems for the MML are build on previous theorems, and are published in the 
+Journal of Formalized Mathematics.
+Each article contain theorems that contain natural deduction steps that contain simple 
+justifications, which have been checked by the Mizar proof checker.
+In order to cross-verify proofs in the MML, a selection of problems and proofs was exported to
+the TPTP format~\cite{US09}.
+The proofs were verified using the GDV proof verifier~\ref{Sut06}.
+Many of the exported problems are in the set theory ({\tt SET}), group theory ({\tt GRP}),
+lattice theory ({\tt LAT}), general algebra ({\tt ALG}), number theory ({\tt NUM}), topology 
+({\tt TOP}), and category theory ({\tt CAT}) domains of the TPTP problem library.
 
-\paragraph{Results from the AIM project:}
-The Aim of AIM
-If Q is a loop with commuting inner mappings ...
-Is Q modulo its center a group?
-Is Q modulo its nucleus an abelian group?
-True for several varieties of loops
-I'm just a logician who trusts mathematicians
-Using ATP
-Done using Prover9
-Requires sophisticated ATP, e.g., proof sketches
-Proofs are very long (viewed with IDV)
-Often no higher level human proofs available
+\paragraph{The AIM project:}
+An Abelian inner mapping is a loop in which the group of inner mappings is an abelian group. 
+These are the subject of study in the AIM project, which uses ATP to answer questions such as:
+``If {\em Q} is a loop with commuting inner mappings then, is {\em Q} modulo its center a group, 
+and, is {\em Q} modulo its nucleus an abelian group?''~\cite{KVV13}.
+The project uses the Prover9 ATP system~\cite{McC-Prover9-URL}.
+Sophisticated ATP techniques that use unique features of Prover9 are used to find proofs, e.g., 
+proof sketches~\cite{Ver01-JAR}.
+Often there are no higher-level human proofs to guide development.
+The proofs can be very long, but interesting steps can be identified using the IDV derivation
+viewer (see Section~\ref{Tools}).
 
 \paragraph{The solution of the Robbins problem:}
 The Robbins problem was posed in personal communications between Edward Huntington,
